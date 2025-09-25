@@ -9,6 +9,7 @@ remote_theme: "mmistakes/minimal-mistakes@4.26.2"
 
 plugins:
   - jekyll-remote-theme
+  - jekyll-include-cache
   - jekyll-sitemap      
   - jekyll-feed          
   - jekyll-seo-tag       
@@ -61,3 +62,6 @@ analytics:
   provider: "google-gtag"     
   google:
     tracking_id: "G-XXXXXXXXXX" 
+
+sass:
+  style: compressed
