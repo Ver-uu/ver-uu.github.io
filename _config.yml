@@ -1,0 +1,63 @@
+title: "Veru_Log"
+description: "Linux, Web, Cloud, Exploit, Security, Hacking, Cyber, Threat, Research, Analysis, Investigation, Insights · 리눅스, 웹, 클라우드, 익스플로잇, 보안, 해킹, 사이버, 위협, 연구, 분석, 조사, 인사이트"
+url: "https://ver-uu.github.io"
+baseurl: ""
+lang: ko
+
+theme: null
+remote_theme: "mmistakes/minimal-mistakes@4.26.2"
+
+plugins:
+  - jekyll-remote-theme
+  - jekyll-sitemap      
+  - jekyll-feed          
+  - jekyll-seo-tag       
+  - jekyll-paginate  
+
+paginate: 5
+paginate_path: "/page:num/"
+
+navigation:
+  - title: Blog
+    url: /blog/
+  - title: Web Security
+    url: /categories/#web-security
+  - title: Cloud Security
+    url: /categories/#cloud-security
+  - title: Hardware Security  
+    url: /categories/#hardware-security
+  - title: Operating Systems 
+    url: /categories/#operating-systems
+  - title: Networking
+    url: /categories/#networking
+  - title: About
+    url: /about/
+  - title: Guestbook
+    url: /guestbook/
+
+author:
+  name: "Veru"
+  bio: ""
+  links:
+    - label: "GitHub"
+      icon: "fab fa-github"
+      url: "https://github.com/ver-uu"
+
+minimal_mistakes_skin: "neon"
+
+search: true
+timezone: "Asia/Seoul"
+
+github_username: "veru"
+
+comments:
+  provider: "utterances"
+  utterances:
+    repo: "ver-uu/ver-uu.github.io"
+    issue-term: "pathname"
+    label: "💬 comment"
+
+analytics:
+  provider: "google-gtag"     
+  google:
+    tracking_id: "G-XXXXXXXXXX" 
