@@ -1,10 +1,10 @@
 /* Sidebar Footer Icons */
 #sidebar-footer .d-flex {
-  justify-content: space-around !important;
+  justify-content: space-between !important;
 }
 
 /* Topbar Padding */
-#topbar-wrapper {
-  padding-left: 2rem !important;
-  padding-right: 2rem !important;
+#topbar .wrapper {
+  max-width: 100% !important; /* Allow it to fill the space */
+  padding: 0 1rem !important; /* Reduce top/bottom and side padding */
 }
