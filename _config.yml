@@ -16,7 +16,7 @@ timezone:
 
 title: Veru_Log # the main title
 
-tagline: Veru's Security Record # it will display as the subtitle
+tagline: Security Record # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
   Linux, Web, Cloud, Exploit, Security, Hacking, Cyber, Threat, Research, Analysis, Investigation, Insights · 리눅스, 웹, 클라우드, 익스플로잇, 보안, 해킹, 사이버, 위협, 연구, 분석, 조사, 인사이트
@@ -96,7 +96,7 @@ theme_mode: # [light | dark]
 cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar: /assets/img/veru.png
+avatar: /assets/veru.png
 
 # The URL of the site-wide social preview image used in SEO `og:image` meta tag.
 # It can be overridden by a customized `page.image` in front matter.
