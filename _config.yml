@@ -16,7 +16,7 @@ timezone:
 
 title: Veru_Log # the main title
 
-tagline: 보안과 기술을 탐험하는 기록 # it will display as the subtitle
+tagline: Veru's Security Record # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
   Linux, Web, Cloud, Exploit, Security, Hacking, Cyber, Threat, Research, Analysis, Investigation, Insights · 리눅스, 웹, 클라우드, 익스플로잇, 보안, 해킹, 사이버, 위협, 연구, 분석, 조사, 인사이트
@@ -35,10 +35,8 @@ social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
   name: veru
-  email: cityll.kr@gmail.com # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://twitter.com/username # change to your Twitter homepage
     - https://github.com/ver-uu # change to your GitHub homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
