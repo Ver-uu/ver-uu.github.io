@@ -31,7 +31,7 @@ layout: default
       {{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}
     </h1>
   {%- endif %}
-  {% include page__date.html %} {# Display date right after title #}
+  {% include page__meta.html %}
 {% endunless %}
 
 {% if page.toc %}
@@ -53,13 +53,13 @@ layout: default
   <h2 class="page__related-title">{{ site.data.ui-text[site.locale].meta_label }}</h2>
 {% endif %}
 
-{% include page__taxonomy.html %} {# Tags only #}
+{% include page__taxonomy.html %}
 
-{% if page.id and page.related and site.related_posts.size > 0 %}
-  {% include page__related.html posts=site.related_posts %}
-{% elsif page.id and page.related %}
-  {% include page__related.html posts=site.posts %}
-{% endif %}
+{% include page__date.html %}
+
+{% if page.share %}{% include social-share.html %}{% endif %}
+
+{% include post_pagination.html %}
 
 {% if site.comments.provider and page.comments %}
   {% if jekyll.environment == 'production' %}
@@ -67,4 +67,12 @@ layout: default
   {% else %}
     <p class="page__comments">Comments are configured with provider: {{ site.comments.provider }}, but are disabled in non-production environments.</p>
   {% endif %}
+{% endif %}
+
+{% comment %}{% endcomment %}
+{% if page.id and page.related and site.related_posts.size > 0 %}
+  {% include page__related.html posts=site.related_posts %}
+{% comment %}{% endcomment %}
+{% elsif page.id and page.related %}
+  {% include page__related.html posts=site.posts %}
 {% endif %}
