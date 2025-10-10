@@ -1,6 +1,6 @@
 ---
 title: "Category"
-layout: categories
+layout: archive
 permalink: /categories/
 author_profile: true
 ---
