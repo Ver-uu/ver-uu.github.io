@@ -1,3 +1,19 @@
-# 2025-10-10
-## My First Post
- 
+---
+layout: single
+title: 2025-10-10
+date: 2025-10-10 11:00 +0900
+categories: 
+    - example
+tags: 
+    - example
+---
+
+예시 포스트 1 
+
+## 오늘의 할일 
+첫 블로그 써보기 
+
+## 제목2 
+
+* 특징 1
+* 특징 2
