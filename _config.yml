@@ -1,53 +1,25 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and and they will be accessible
-# in the templates via {{ site.myvariable }}.
+# 기본 설정
 title: Veru
-email:
-description: >- # this means to ignore newlines until "baseurl:"
-  Linux, Web, Cloud, Exploit, Security, Hacking, Cyber, Threat, Research, Analysis, Investigation, Insights · 리눅스, 웹, 클라우드, 익스플로잇, 보안, 해킹, 사이버, 위협, 연구, 분석, 조사, 인사이트
+description: "리눅스·웹·클라우드 환경의 원리를 탐구하며, 모의해킹과 취약점 분석을 학습과 실습을 통해 기록하고 성장하는 Veru의 보안 연구 일지."
 url: "https://ver-uu.github.io"
-twitter_username: username
-github_username: ver-uu
-minimal_mistakes_skin: "dirt"
-search: true
-paginate: 5
 
-# Build settings
-markdown: kramdown
+# 테마 설정
 remote_theme: mmistakes/minimal-mistakes
-# Outputting
-permalink: /:categories/:title/
-paginate_path: /page:num/
-timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+minimal_mistakes_skin: "dirt"
 
+# 검색 설정
+search: true
+
+# 빌드 설정
+markdown: kramdown
+permalink: /:categories/:title/
+paginate: 5
+paginate_path: /page:num/
+timezone: Asia/Seoul
 include:
   - _pages
 
-# Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
-
-# Plugins (previously gems:)
+# 플러그인
 plugins:
   - jekyll-paginate
   - jekyll-sitemap
@@ -55,6 +27,7 @@ plugins:
   - jemoji
   - jekyll-include-cache
 
+# 작성자 정보
 author:
   name   : "Veru"
   avatar : "/assets/images/veru.png"
@@ -67,10 +40,8 @@ author:
       icon: "fab fa-fw fa-instagram"
       url: "https://www.instagram.com/ver_uu_?igsh=d2szYW13bjh3bjM3&utm_source=qr"
 
-# Footer section removed
-
+# 기본값 설정
 defaults:
-  # _posts
   - scope:
       path: ""
       type: posts
@@ -78,11 +49,11 @@ defaults:
       layout: single
       author_profile: true
       read_time: false
-      comments: false
+      comments: true
       share: false
-      related: false
+      related: true
       categories: false
-  # _pages
+
   - scope:
       path: "_pages"
       type: pages
@@ -90,9 +61,20 @@ defaults:
       layout: single
       author_profile: true
 
+# 카테고리 설정
 category_archive:
   type: liquid
   path: /categories/
 tag_archive:
   type: liquid
   path: /tags/
+
+# 댓글 설정
+comments:
+  provider: "utterances"
+  utterances:
+    repo: "ver-uu/ver-uu.github.io"
+    issue-term: "pathname"
+    label: "💬"
+    theme: "github-light"
+    crossorigin: "anonymous"

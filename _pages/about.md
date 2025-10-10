@@ -1,8 +1,38 @@
 ---
-permalink: /about/
 title: "About"
+permalink: /about/
+layout: single
+author_profile: true
 ---
 
-Tempor velit sint sunt ipsum tempor enim ad qui ullamco. Est dolore anim ad velit duis dolore minim sunt aliquip amet commodo labore. Ut eu pariatur aute ea aute excepteur laborum. Esse ea esse excepteur minim mollit qui cillum excepteur ex dolore magna. Labore deserunt fugiat incididunt incididunt sint ea. Consequat dolore aute laboris quis proident quis non et est consectetur ex eiusmod sit culpa.
+> “왜 이렇게 동작할까?”  
+> 단순히 명령어를 따라 치는 것을 넘어,  
+> 그 질문에 대한 답을 찾아가는 과정을 기록합니다.  
 
-Cupidatat ea do et in excepteur in. Ad nostrud ut est esse eu duis ea sunt eiusmod. Aliquip tempor veniam sint elit fugiat. Velit incididunt laboris amet incididunt labore dolore irure velit excepteur commodo deserunt laborum. Consectetur eu fugiat veniam veniam Lorem labore magna eiusmod. Ea occaecat reprehenderit pariatur consectetur minim labore ut aliquip.
+---
+
+### 보안에 대한 생각
+
+저는 보안을 단순히 침입을 막거나 취약점을 찾는 행위로 보지 않습니다.
+보안의 본질은 절대적인 방어가 아니라,
+위험과 효율 사이의 균형을 설계하는 일이라고 생각합니다.
+
+시스템의 작동 원리를 이해하고, 예측 가능한 실패를 설계하며,
+진짜 위험을 식별해 감당 가능한 수준으로 조정하는 것
+그리고 그 구조가 안전하다는 확신을 사용자에게 주는 것이
+제가 생각하는 보안의 역할입니다.
+
+모든 위험에는 이유가 있습니다.
+저는 그 이유를 끝까지 파고들어 구조를 분석하고,
+원리를 이해해가는 과정을 즐깁니다.
+
+위의 생각을 바탕으로,
+이 블로그는 탐구와 실험을 통해 대상을 깊이 이해하고 분석해가는 과정을 기록합니다.
+
+---
+
+### 함께하기
+
+이 블로그는 저의 성장 기록이자, 글을 읽어주시는 독자 분들의 소통 공간입니다.
+글에 대한 추가적인 의견은 언제나 환영입니다.
+제 프로젝트와 코드는 GitHub에서 확인하실 수 있습니다.
