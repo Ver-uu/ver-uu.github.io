@@ -54,7 +54,7 @@ defaults:
       comments: true
       share: false
       related: true
-      categories: false
+      categories: []
 
   - scope:
       path: "_pages"
