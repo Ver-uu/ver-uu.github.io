@@ -26,6 +26,8 @@ plugins:
   - jekyll-gist
   - jemoji
   - jekyll-include-cache
+  - jekyll-remote-theme
+  - jekyll-feed 
 
 # 작성자 정보
 author:
