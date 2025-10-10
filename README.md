@@ -13,6 +13,6 @@
 
 ---
 
-Built with [Jekyll](https://jekyllrb.com/) & [Minimal Mistakes](https://github.com/mmistakes/minimal-mistakes) theme.  
-<br>  
-© 2025 Veru — Written with curiosity and persistence.
+<p align="center">
+  © 2025 Veru — Written with curiosity and persistence.
+</p>
