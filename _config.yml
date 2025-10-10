@@ -80,3 +80,5 @@ comments:
     label: "💬"
     theme: "github-light"
     crossorigin: "anonymous"
+encoding: utf-8
+safe: true
