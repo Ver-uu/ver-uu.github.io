@@ -1,10 +1,10 @@
 /* Apply single layout width to archive and home */
 .archive, .home {
-  max-width: 800px; /* Minimal Mistakes default content width for single layout */
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 2em; /* Default padding */
-  padding-right: 2em; /* Default padding */
+  padding-left: 2em;
+  padding-right: 2em;
 }
 
 /* Hide "Posts by Category" text on Blog page */
@@ -14,25 +14,26 @@
 
 /* Reduce font size of search input placeholder */
 .search__input::placeholder {
-  font-size: 0.9em; /* Adjust as needed */
+  font-size: 0.9em;
 }
 .search__input {
-  font-size: 0.9em; /* Adjust actual input text size */
+  font-size: 0.9em;
 }
 
 /* ==========================================================================
-   테마 호환 커스텀 CSS (v2)
+   테마 호환 커스텀 CSS (v3)
    ========================================================================== */
 
 /* ===== 1. 전체 다크 모드 테마 ===== */
 body {
   background-color: #1e1e1e;
-  color: #e0e0e0;
+  color: #d4d4d4; // 기본 글자색 약간 어둡게
+  font-size: 15px; // 기본 폰트 크기 줄이기 (16px -> 15px)
 }
 
 .page, .archive {
   background-color: #1e1e1e;
-  color: #e0e0e0;
+  color: #d4d4d4;
 }
 
 .page__title, .page__content h1, .page__content h2, .page__content h3 {
@@ -40,7 +41,7 @@ body {
 }
 
 a {
-  color: #a6c5ff;
+  color: #9cdcfe;
 }
 
 /* ===== 2. 사이드바 ===== */
@@ -48,6 +49,13 @@ a {
   background-color: #252526;
   border-right: 1px solid #333333;
   color: #cccccc;
+  padding-right: 20px; // 내부 여백
+  box-shadow: 4px 0px 15px -5px rgba(0,0,0,0.2); // 구분감 주는 그림자 효과
+}
+
+// 메인 콘텐츠와의 여백 확보
+.page__inner-wrap {
+  padding-left: 3em;
 }
 
 .author__name, .author__bio {
@@ -68,25 +76,13 @@ a {
   margin-bottom: 1em;
   color: #ccc;
   font-weight: bold;
-}
-
-.search-input {
-  width: 100%;
-  padding: 10px 15px 10px 35px;
-  border: 1px solid #444;
-  border-radius: 8px;
-  background-color: #3c3c3c;
-  color: #ffffff;
-  font-size: 1em;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' fill='%23999'%3E%3Cpath d='M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.3-128-128S137.3 80 208 80s128 57.3 128 128-57.3 128-128 128z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: 10px center;
-  background-size: 16px 16px;
+  font-size: 1.1em; // 카테고리 타이틀 크기
 }
 
 .nav__list-item-toggle {
   font-weight: bold;
   cursor: pointer;
+  font-size: 0.95em; // 카테고리 항목 폰트 줄이기
 }
 
 .nav__submenu {
@@ -99,7 +95,7 @@ a {
 .nav__submenu.is-visible { display: block; }
 
 .nav__submenu-item a {
-  font-size: 0.95em;
+  font-size: 0.9em; // 하위 글 폰트 줄이기
   color: #aaaaaa;
 }
 
