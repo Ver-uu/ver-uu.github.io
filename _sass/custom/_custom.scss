@@ -19,3 +19,139 @@
 .search__input {
   font-size: 0.9em; /* Adjust actual input text size */
 }
+
+/* ==========================================================================
+   최종 병합된 커스텀 CSS
+   ========================================================================== */
+
+/* ===== 1. 전체 다크 모드 테마 ===== */
+body {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+a {
+  color: #a6c5ff;
+}
+
+/* ===== 2. Layout (제공해주신 코드 기반) ===== */
+.page-grid {
+  --page-max: 1400px;
+  --gap: 32px;
+  --sidebar: 300px;
+  --header-h: 64px;
+  --card-radius: 12px;
+
+  display: grid;
+  grid-template-columns: var(--sidebar) minmax(0, 1fr);
+  gap: var(--gap);
+  align-items: start;
+
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 24px 24px 64px;
+}
+
+/* ===== 3. Sidebar (제공해주신 코드 기반 + 다크 모드) ===== */
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-h) + 24px);
+  height: calc(100dvh - var(--header-h) - 48px);
+  border-right: 1px solid #333; // 다크모드용 구분선
+  padding-right: var(--gap);
+}
+
+.sidebar-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 100%;
+}
+
+/* 프로필 (기존 테마 스타일 활용) */
+.author__name { color: #fff; }
+.author__bio { color: #ccc; }
+.author__urls .svg-inline--fa { color: #ccc; }
+
+/* 검색 인풋 (제공해주신 코드 기반 + 다크 모드 + 아이콘) */
+.search input {
+  width: 100%;
+  padding: 12px 14px 12px 40px; // 아이콘 여백
+  border: 1px solid #444;
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
+  background-color: #3c3c3c;
+  color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' fill='%23999'%3E%3Cpath d='M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.3-128-128S137.3 80 208 80s128 57.3 128 128-57.3 128-128 128z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 12px center;
+  background-size: 16px 16px;
+}
+.search input:focus { 
+  border-color: #5a81c2;
+  box-shadow: 0 0 0 3px rgba(90, 129, 194, 0.3);
+}
+
+/* 카테고리 (제공해주신 코드 기반 + 다크 모드 + 접기/펼치기 기능) */
+.scrollable {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+.scrollable::-webkit-scrollbar { width: 6px; }
+.scrollable::-webkit-scrollbar-thumb { background: #444; border-radius: 6px; }
+.scrollable ul { list-style: none; margin: 0; padding: 0; }
+
+.nav__list-item-toggle {
+  display: block;
+  padding: 6px 0;
+  font-weight: bold;
+  color: #e0e0e0;
+  text-decoration: none;
+  cursor: pointer;
+}
+.nav__list-item-toggle:hover { color: #fff; }
+
+.nav__submenu {
+  display: none; /* JS로 컨트롤 */
+  padding-left: 15px;
+  list-style: none;
+  border-left: 1px solid #444;
+  margin: 4px 0 12px;
+}
+.nav__submenu.is-visible { display: block; }
+.nav__submenu a {
+  display: block;
+  padding: 4px 0;
+  color: #aaa;
+  text-decoration: none;
+}
+.nav__submenu a:hover { color: #fff; text-decoration: underline; }
+
+
+/* ===== 4. Main content (다크 모드) ===== */
+.content { 
+  min-width: 0;
+  color: #e0e0e0;
+}
+.page__title { color: #fff; }
+
+
+/* ===== 5. Responsive (제공해주신 코드 기반) ===== */
+@media (max-width: 1024px) {
+  .page-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .sidebar {
+    position: static;
+    height: auto;
+    border-right: none;
+    padding-right: 0;
+    border-bottom: 1px solid #333;
+    padding-bottom: 24px;
+  }
+  .scrollable { max-height: 300px; }
+}
+
