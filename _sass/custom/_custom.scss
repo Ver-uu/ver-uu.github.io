@@ -1,71 +1,66 @@
 /* ==========================================================================
-   최종 통합 커스텀 CSS (v4)
+   최종 커스텀 CSS (v5 - 테마 호환 안정 버전)
    ========================================================================== */
 
-/* ===== 1. 기본 & 다크 모드 테마 ===== */
+/* ===== 1. 전체 다크 모드 테마 ===== */
 body {
-  background-color: #1e1e1e;
+  background-color: #1e1e1e !important;
   color: #d4d4d4;
   font-size: 15px;
 }
 
+#main {
+  background-color: #1e1e1e;
+}
+
+.page, .archive, .author__urls a {
+  color: #d4d4d4;
+}
+
+.page__title, .page__content h1, .page__content h2, .page__content h3 {
+  color: #ffffff;
+}
+
 a { color: #9cdcfe; }
 
-/* ===== 2. 그리드 레이아웃 (요청 기반) ===== */
-.page-grid {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px 24px 64px;
-  display: grid;
-  grid-template-columns: 300px minmax(0, 1fr); // 사이드바 너비 고정
-  gap: 32px;
-  align-items: start;
-}
-
-/* ===== 3. 사이드바 (요청 기반 + 다크 모드) ===== */
+/* ===== 2. 사이드바 & 메인 콘텐츠 레이아웃 조정 ===== */
 .sidebar {
-  position: sticky;
-  top: 80px; // 헤더 높이 고려
-  padding-right: 32px;
-  border-right: 1px solid #333; // 다크모드용 구분선
-  height: calc(100vh - 120px); // 스크롤을 위한 높이 계산
-  overflow-y: auto; // 내용 길어지면 사이드바 자체 스크롤
+  background-color: #252526;
+  border-right: 1px solid #333333;
+  box-shadow: 4px 0px 15px -5px rgba(0,0,0,0.2); // 구분감 주는 그림자
 }
 
-/* 사이드바 스크롤바 스타일 */
-.sidebar::-webkit-scrollbar { width: 4px; }
-.sidebar::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+// 테마의 기본 미디어쿼리를 활용하여 여백 조정
+@media (min-width: 64em) { // 넓은 화면일 때
+  .page__inner-wrap {
+    padding-left: 20px;
+  }
+}
 
-/* 프로필 (기존 테마 스타일 오버라이드) */
-.author__avatar img { width: 96px; height: 96px; }
-.author__name { font-weight: 700; font-size: 24px; margin-top: 12px; color: #fff; }
-.author__bio { color: #a0a0a0; margin: 4px 0 16px; }
-.author__urls a { display: flex; align-items: center; gap: 8px; color: #a0a0a0; padding: 4px 0; }
-.author__urls .svg-inline--fa { width: 16px; }
-
-/* 커스텀 사이드바 섹션 (검색, 카테고리) */
+/* ===== 3. 커스텀 사이드바 콘텐츠 스타일 ===== */
 .sidebar-section {
-  margin-top: 24px;
+  padding: 0 20px;
+  margin-top: 2em;
 }
 
 .sidebar-section .nav__title {
-  font-weight: 700;
-  font-size: 16px;
-  margin-bottom: 8px;
-  color: #e0e0e0;
+  margin-bottom: 1em;
+  color: #ccc;
+  font-weight: bold;
+  font-size: 1.1em;
 }
 
-/* 카테고리 목록 */
-.nav__list { list-style: none; margin: 0; padding: 0; }
-.nav__list-item { padding: 2px 0; }
+.author__name, .author__bio { color: #ffffff; }
+.author__urls .svg-inline--fa { color: #cccccc; }
+
+.nav__list { list-style: none; padding: 0; margin: 0; }
+.nav__list-item { margin-bottom: 0.5em; }
 
 .nav__list-item-toggle {
-  display: block;
-  padding: 4px 0;
-  font-weight: 500;
-  color: #d4d4d4;
-  text-decoration: none;
+  font-weight: bold;
   cursor: pointer;
+  font-size: 0.95em;
+  color: #e0e0e0;
 }
 .nav__list-item-toggle:hover { color: #fff; }
 
@@ -73,42 +68,15 @@ a { color: #9cdcfe; }
   display: none; /* JS로 컨트롤 */
   padding-left: 15px;
   list-style: none;
+  margin-top: 5px;
   border-left: 1px solid #444;
-  margin: 4px 0 12px;
 }
+
 .nav__submenu.is-visible { display: block; }
-.nav__submenu a { display: block; padding: 3px 0; color: #888; text-decoration: none; }
-.nav__submenu a:hover { color: #fff; }
 
-
-/* ===== 4. 메인 콘텐츠 (요청 기반) ===== */
-.content { 
-  min-width: 0; 
-  padding-top: 8px; // 헤더와의 간격
+.nav__submenu-item a {
+  font-size: 0.9em;
+  color: #aaaaaa;
 }
-
-// 본문 폭 제한
-.page__inner-wrap {
-  max-width: 720px;
-}
-
-.page__title { color: #fff; }
-
-
-/* ===== 5. 반응형 (요청 기반) ===== */
-@media (max-width: 1024px) {
-  .page-grid {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-  .sidebar {
-    position: static;
-    height: auto;
-    border-right: none;
-    padding-right: 0;
-    border-bottom: 1px solid #333;
-    padding-bottom: 24px;
-    overflow-y: visible;
-  }
-}
+.nav__submenu-item a:hover { color: #fff; }
 
