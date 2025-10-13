@@ -1,0 +1,72 @@
+// _sass/components/_terminal.scss
+
+.terminal {
+  background-color: var(--terminal-bg);
+  color: var(--terminal-text);
+  font-family: var(--font-family-monospace);
+  height: calc(100vh - var(--header-height) - 100px); // Adjust to fit viewport
+  padding: var(--spacing-unit);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+#terminal-output {
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.terminal-input-line {
+  display: flex;
+  align-items: center;
+}
+
+.prompt {
+  color: var(--terminal-prompt);
+  white-space: nowrap;
+}
+
+.terminal-input {
+  background: transparent;
+  border: none;
+  color: var(--terminal-text);
+  font-family: var(--font-family-monospace);
+  font-size: 1em;
+  flex-grow: 1;
+  padding: 0;
+  margin: 0;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1.2em;
+  background-color: var(--terminal-cursor);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from, to { background-color: transparent; }
+  50% { background-color: var(--terminal-cursor); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    animation: none;
+  }
+}
+
+// Terminal output styles
+.terminal-line {
+  margin-bottom: 0.5em;
+}
+
+.terminal-line.command-output a {
+  color: var(--color-link);
+  text-decoration: underline;
+}

@@ -1,0 +1,23 @@
+---
+layout: default
+---
+<div class="terminal" id="terminal-window">
+  <div id="terminal-output" role="region" aria-live="polite"></div>
+  <div class="terminal-input-line">
+    <span class="prompt">>&nbsp;</span>
+    <input type="text" id="terminal-input" class="terminal-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Command input">
+    <span class="cursor"></span>
+  </div>
+</div>
+
+<noscript>
+  <div class="noscript-warning">
+    <p>This website's terminal interface requires JavaScript to function. Please enable it to use the terminal.</p>
+    <p>You can still navigate the site using the links in the header.</p>
+  </div>
+</noscript>
+
+<!-- Embed command data as JSON for terminal.js -->
+<script>
+  window.__TERMINAL_COMMANDS__ = {{ site.data.commands | jsonify }};
+</script>

@@ -1,0 +1,26 @@
+# Data for terminal commands
+
+- name: theme
+  usage: "/theme [light|dark]"
+  description: "Switch between light and dark themes."
+  man_page: "The /theme command allows you to change the color scheme of the site. Your preference is saved locally in your browser and will be applied on your next visit. Usage: /theme light  OR  /theme dark."
+
+- name: help
+  usage: "/help"
+  description: "Lists all available commands."
+  man_page: "The /help command provides a quick reference list of all the commands you can use in this terminal."
+
+- name: grep
+  usage: "/grep [keyword]"
+  description: "Searches for posts containing a specific keyword."
+  man_page: "'/grep' stands for 'Global Regular Expression Print'. It's a classic command-line utility for searching plain-text data sets for lines that match a regular expression. Here, it's simplified to search for posts. For example, '/grep security' will find all posts that mention the word 'security'."
+
+- name: man
+  usage: "/man [command]"
+  description: "Displays the manual page for a command."
+  man_page: "'/man' stands for 'manual'. It provides a more detailed explanation of what a command does and how to use it. For example, '/man grep' will show you the detailed manual for the /grep command."
+
+- name: clear
+  usage: "/clear"
+  description: "Clears the terminal screen."
+  man_page: "The /clear command clears all output from the terminal screen, giving you a fresh start."

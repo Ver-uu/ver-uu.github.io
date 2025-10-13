@@ -1,0 +1,28 @@
+<aside class="sidebar">
+  <div class="profile">
+    {% if site.data.profile.avatar %}
+      <img src="{{ site.data.profile.avatar | relative_url }}" alt="{{ site.data.profile.name }}" class="profile-avatar">
+    {% endif %}
+    <h2 class="profile-name">{{ site.data.profile.name }}</h2>
+    <p class="profile-bio">{{ site.data.profile.bio }}</p>
+    <div class="profile-links">
+      {% if site.data.profile.github %}
+        <a href="{{ site.data.profile.github }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+      {% endif %}
+      {% if site.data.profile.instagram %}
+        <a href="{{ site.data.profile.instagram }}" target="_blank" rel="noopener noreferrer">Instagram</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="categories-container">
+    <h3 class="categories-title">Categories</h3>
+    <ul class="categories-list">
+      {% for category in site.categories %}
+        <li>
+          <a href="#">{{ category | first }} ({{ category | last | size }})</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</aside>

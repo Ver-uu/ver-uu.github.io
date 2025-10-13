@@ -1,0 +1,17 @@
+---
+# This front matter tells Jekyll to process the file
+---
+
+// Import base styles and variables
+@import "base/variables";
+@import "base/accessibility";
+
+// Import layout styles
+@import "layout/structure";
+
+// Import component styles
+@import "components/terminal";
+@import "components/sidebar";
+@import "components/post";
+
+// You can add more specific or general styles here if needed

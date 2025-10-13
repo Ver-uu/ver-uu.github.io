@@ -1,0 +1,15 @@
+# Jekyll build output
+_site/
+
+# Jekyll caches
+.jekyll-cache/
+.jekyll-metadata
+
+# Sass caches
+.sass-cache/
+
+# Gemfile lock file
+Gemfile.lock
+
+# macOS files
+.DS_Store
