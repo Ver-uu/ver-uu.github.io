@@ -8,8 +8,5 @@ _site/
 # Sass caches
 .sass-cache/
 
-# Gemfile lock file
-Gemfile.lock
-
 # macOS files
 .DS_Store
