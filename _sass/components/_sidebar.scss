@@ -1,24 +1,24 @@
 // _sass/components/_sidebar.scss
 
 .sidebar {
-  background-color: var(--color-sidebar-bg);
-  padding: calc(var(--spacing-unit) * 1.5);
-  border-radius: var(--border-radius);
-  border: 1px solid var(--color-border);
+  background-color: var(--panel);
+  padding: calc(var(--space) * 1.5);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
   align-self: start; // Stick to the top of the grid cell
 }
 
 .profile {
   text-align: center;
-  border-bottom: 1px solid var(--color-border);
-  padding-bottom: var(--spacing-unit);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: var(--space);
 }
 
 .profile-avatar {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  margin-bottom: var(--spacing-unit);
+  margin-bottom: var(--space);
 }
 
 .profile-name {
@@ -28,27 +28,29 @@
 
 .profile-bio {
   font-size: 1rem;
-  color: var(--color-text);
+  color: var(--muted);
   margin-top: 0.5rem;
 }
 
 .profile-links {
-  margin-top: var(--spacing-unit);
+  margin-top: var(--space);
   a {
-    color: var(--color-link);
+    color: var(--accent-2);
     text-decoration: none;
     margin: 0 0.5rem;
-    &:hover { text-decoration: underline; }
+    &:hover { 
+      text-shadow: var(--glow-weak);
+    }
   }
 }
 
 .categories-container {
-  margin-top: var(--spacing-unit);
+  margin-top: var(--space);
 }
 
 .categories-title {
   font-size: 1.2rem;
-  margin-bottom: var(--spacing-unit);
+  margin-bottom: var(--space);
   text-align: center;
 }
 
@@ -63,11 +65,13 @@
     display: block;
     padding: 0.5rem 1rem;
     text-decoration: none;
-    color: var(--color-text);
+    color: var(--fg);
     border-radius: 4px;
 
     &:hover {
-      background-color: var(--color-border);
+      background-color: rgba(255, 255, 255, 0.05);
+      color: var(--fg);
+      text-shadow: none;
     }
   }
 }

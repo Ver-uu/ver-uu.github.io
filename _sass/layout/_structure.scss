@@ -1,77 +1,66 @@
 // _sass/layout/_structure.scss
 
-body {
-  background-color: var(--color-background);
-  color: var(--color-text);
-  font-family: var(--font-family-sans-serif);
-  line-height: 1.6;
-  margin: 0;
-  transition: background-color 0.2s, color 0.2s;
-}
-
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--spacing-unit);
+  padding: 0 var(--space);
 }
 
 .site-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--spacing-unit) 0;
-  border-bottom: 1px solid var(--color-border);
-  height: var(--header-height);
-  background-color: var(--color-header-bg);
+  padding: var(--space) 0;
+  border-bottom: 1px solid var(--border);
+  height: 60px;
+  background-color: transparent;
 }
 
 .site-title {
   font-size: 1.5rem;
   font-weight: bold;
   text-decoration: none;
-  color: var(--color-text);
+  color: var(--fg);
 }
 
 .site-nav a {
-  margin-left: var(--spacing-unit);
+  margin-left: var(--space);
   text-decoration: none;
-  color: var(--color-link);
+  transition: text-shadow 0.3s ease;
+
+  &:hover {
+    text-shadow: 0 0 8px var(--accent-cyan);
+  }
+
+  &:active {
+    color: inherit; // Prevent color change on click
+  }
 }
 
 .site-main {
-  padding: calc(var(--spacing-unit) * 2) 0;
-  min-height: calc(100vh - var(--header-height) - 100px); // Adjust 100px for footer height
-}
-
-.site-footer {
-  text-align: center;
-  padding: calc(var(--spacing-unit) * 1.5);
-  border-top: 1px solid var(--color-border);
-  font-size: 0.9rem;
-  background-color: var(--color-footer-bg);
+  padding: calc(var(--space) * 2) 0;
+  min-height: calc(100vh - 60px - 50px); // header/footer height
 }
 
 // For pages with a sidebar
 .page-with-sidebar {
   display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr;
-  gap: calc(var(--spacing-unit) * 2);
+  grid-template-columns: 280px 1fr;
+  gap: calc(var(--space) * 2);
 }
 
 // Responsive layout
 @media (max-width: 768px) {
   .page-with-sidebar {
-    grid-template-columns: 1fr; // Stack sidebar and content
+    grid-template-columns: 1fr;
+    gap: var(--space);
   }
 
   .site-header {
-    flex-direction: column;
     height: auto;
-    padding-bottom: var(--spacing-unit);
-  }
-
-  .site-nav {
-    margin-top: var(--spacing-unit);
+    flex-direction: column;
+    gap: var(--space);
+    padding-bottom: var(--space);
   }
 }
 
@@ -92,10 +81,10 @@ body {
     width: auto;
     height: auto;
     padding: 10px 15px;
-    background-color: var(--color-primary);
-    color: white;
+    background-color: var(--accent-1);
+    color: var(--bg);
     z-index: 9999;
     text-decoration: none;
-    border-radius: var(--border-radius);
+    border-radius: var(--radius);
   }
 }

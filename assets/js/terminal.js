@@ -38,26 +38,26 @@ class Terminal {
 
   async showWelcomeMessage() {
     const welcomeLines = [
-      'Welcome to Veru\'s Log!',
-      'Type `/help` to see a list of available commands.',
-      ' ',
+      { text: '### Welcome to Veru\'s Log!', classes: ['line-welcome'] },
+      { text: 'Type `/help` to see a list of available commands.', classes: ['line-system'] },
+      { text: ' ', classes: [] },
     ];
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (prefersReducedMotion) {
-      welcomeLines.forEach(line => this.printLine(line));
+      welcomeLines.forEach(line => this.printLine(line.text, false, line.classes));
       return;
     }
 
     for (const line of welcomeLines) {
-      await this.typeLine(line, 50);
+      await this.typeLine(line.text, 50, line.classes);
     }
   }
 
-  typeLine(line, speed) {
+  typeLine(line, speed, classes = []) {
     return new Promise(resolve => {
       let i = 0;
-      const outputLine = this.createNewLine();
+      const outputLine = this.createNewLine(classes);
       const interval = setInterval(() => {
         if (i < line.length) {
           outputLine.textContent += line.charAt(i);
@@ -101,7 +101,7 @@ class Terminal {
 
   processCommand(inputValue) {
     if (!inputValue.startsWith('/')) {
-      this.printLine(`-bash: ${inputValue}: command not found`);
+      this.printLine(`-bash: ${inputValue}: command not found`, false, ['line-system']);
       return;
     }
 
@@ -124,19 +124,19 @@ class Terminal {
         this.handleClear();
         break;
       default:
-        this.printLine(`-bash: /${command}: command not found`);
+        this.printLine(`-bash: /${command}: command not found`, false, ['line-system']);
     }
     this.scrollToBottom();
   }
 
   handleHelp() {
     const helpText = this.commands.map(cmd => `  /${cmd.name.padEnd(10)} ${cmd.description}`).join('\n');
-    this.printLine(helpText);
+    this.printLine(helpText, false, ['output-help']);
   }
 
   handleMan(args) {
     if (args.length === 0) {
-      this.printLine('Usage: /man [command]');
+      this.printLine('Usage: /man [command]', false, ['line-system']);
       return;
     }
     const cmdName = args[0];
@@ -144,7 +144,7 @@ class Terminal {
     if (cmd) {
       this.printLine(cmd.man_page);
     } else {
-      this.printLine(`No manual entry for ${cmdName}`);
+      this.printLine(`No manual entry for ${cmdName}`, false, ['line-system']);
     }
   }
 
@@ -152,19 +152,19 @@ class Terminal {
     const theme = args[0];
     if (theme === 'light' || theme === 'dark') {
       switchTheme(theme);
-      this.printLine(`Theme switched to ${theme}.`);
+      this.printLine(`Theme switched to ${theme}.`, false, ['line-system']);
     } else {
-      this.printLine('Usage: /theme [light|dark]');
+      this.printLine('Usage: /theme [light|dark]', false, ['line-system']);
     }
   }
 
   handleGrep(args) {
     if (args.length === 0) {
-      this.printLine('Usage: /grep [keyword]');
+      this.printLine('Usage: /grep [keyword]', false, ['line-system']);
       return;
     }
     if (!this.searchIndex) {
-      this.printLine('Search index is not loaded yet. Please try again in a moment.');
+      this.printLine('Search index is not loaded yet. Please try again in a moment.', false, ['line-system']);
       return;
     }
     const keyword = args.join(' ').toLowerCase();
@@ -177,7 +177,7 @@ class Terminal {
       const resultLines = results.map(post => `  <a href="${post.url}">${post.title}</a>`).join('\n');
       this.printLine(resultLines, true);
     } else {
-      this.printLine(`No posts found containing "${keyword}".`);
+      this.printLine(`No posts found containing "${keyword}".`, false, ['line-system']);
     }
   }
 
@@ -185,8 +185,8 @@ class Terminal {
     this.output.innerHTML = '';
   }
 
-  printLine(text, isHTML = false) {
-    const line = this.createNewLine('command-output');
+  printLine(text, isHTML = false, classes = []) {
+    const line = this.createNewLine(['command-output', ...classes]);
     if (isHTML) {
       line.innerHTML = text;
     } else {
@@ -194,9 +194,9 @@ class Terminal {
     }
   }
 
-  createNewLine(className = '') {
+  createNewLine(classes = []) {
     const div = document.createElement('div');
-    div.className = `terminal-line ${className}`.trim();
+    div.className = ['terminal-line', ...classes].join(' ').trim();
     this.output.appendChild(div);
     this.scrollToBottom();
     return div;

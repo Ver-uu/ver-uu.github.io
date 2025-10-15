@@ -4,14 +4,16 @@
 
 // Import base styles and variables
 @import "base/variables";
+@import "base/base";
 @import "base/accessibility";
 
 // Import layout styles
 @import "layout/structure";
 
 // Import component styles
-@import "components/terminal";
+@import "components/new_terminal";
 @import "components/sidebar";
 @import "components/post";
+@import "components/callout";
 
 // You can add more specific or general styles here if needed

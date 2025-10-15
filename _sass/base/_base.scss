@@ -1,0 +1,32 @@
+body {
+  background: radial-gradient(circle at 50% 20%, #12141b 0%, #0a0d11 80%);
+  color: var(--fg-main);
+  font-family: var(--mono);
+  font-size: var(--fs);
+  line-height: var(--lh);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  // Grid Overlay
+  &::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      repeating-linear-gradient(to right, rgba(255, 255, 255, .03) 0 1px, transparent 1px 96px),
+      repeating-linear-gradient(to bottom, rgba(255, 255, 255, .03) 0 1px, transparent 1px 96px);
+  }
+}
+
+// Noise Overlay
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: url("/assets/images/noise.jpg");
+  mix-blend-mode: overlay;
+  opacity: .1;
+  z-index: -1;
+}

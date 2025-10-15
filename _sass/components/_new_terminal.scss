@@ -1,0 +1,364 @@
+// _sass/components/_new_terminal.scss
+
+.scene {
+  perspective: 800px;
+  transition: transform 0.1s ease-out;
+}
+
+.mac-terminal-wrapper {
+  padding: 15px 2rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; // Align to top to control space precisely
+  min-height: 100vh;
+}
+
+.mac-terminal-glow-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; // Ensure container takes full width
+
+  // Outer Glow Ring
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(circle at 50% 100%, rgba(143, 99, 255, .1), transparent 70%);
+    filter: blur(30px);
+    z-index: 0;
+  }
+}
+
+.mac-terminal {
+  width: 70vw;
+  aspect-ratio: 4 / 2.5; // Changed aspect ratio
+  max-height: calc(100vh - 75px); // Adjusted for new padding (60px header + 15px padding)
+  max-width: 1100px;
+  position: relative;
+  z-index: 1;
+  
+  // --- Glass Panel Foundation (More Opaque) ---
+  background: rgba(15, 20, 29, .5);
+  backdrop-filter: blur(14px) saturate(120%);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+
+  // --- Lighting & Glow ---
+  box-shadow: var(--shadow), var(--glow-blue-weak), var(--glow-violet-weak);
+  will-change: transform, box-shadow;
+
+  // --- Motion ---
+  animation: float 9s ease-in-out infinite, ambient 6s ease-in-out infinite alternate;
+
+  &.active {
+    box-shadow: var(--shadow), 0 0 40px rgba(143, 99, 255, 0.3);
+  }
+}
+
+// --- Gradient Border ---
+
+.mac-terminal::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: inherit;
+
+  pointer-events: none;
+
+  padding: 1px;
+
+  background: linear-gradient(135deg, rgba(143, 99, 255, .6), rgba(102, 202, 255, .5));
+
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+
+  -webkit-mask-composite: xor;
+
+  mask-composite: exclude;
+
+  opacity: .8;
+
+}
+
+
+
+// --- Top Reflection ---
+
+.mac-terminal::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: inherit;
+
+  pointer-events: none;
+
+  background: linear-gradient(to bottom, rgba(255, 255, 255, .10), transparent 34%);
+
+  mix-blend-mode: screen;
+
+  opacity: .75;
+
+}
+
+
+
+// --- Bloom Overlay ---
+
+.bloom {
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+
+    radial-gradient(480px 240px at 40% 35%, rgba(102, 202, 255, .10), transparent 60%),
+
+    radial-gradient(420px 220px at 62% 60%, rgba(143, 99, 255, .08), transparent 65%);
+
+  background-blend-mode: screen;
+
+  z-index: 2;
+
+  opacity: 0.7;
+
+}
+
+
+
+// --- Terminal Header ---
+
+.header {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 12px; // Increased vertical padding for balance
+
+  border-bottom: 1px solid var(--border);
+
+  background: linear-gradient(to bottom, rgba(255, 255, 255, .02), rgba(255, 255, 255, 0));
+
+  flex-shrink: 0;
+
+
+
+  &__op-icon {
+
+    width: 12px; height: 12px; border-radius: 50%;
+
+    &--red { background: #e95f5f; }
+
+    &--yellow { background: #e6c15f; }
+
+    &--green { background: #60c66b; }
+
+  }
+
+  &__title { margin-left: 6px; color: var(--fg-muted); font-size: 14px; } // Increased font size
+
+}
+
+
+
+// --- Terminal Body & Text ---
+
+.body {
+
+  padding: 0 var(--space) var(--space); // Removed top padding
+
+  overflow-y: auto;
+
+  flex-grow: 1;
+
+  display: flex;
+
+  flex-direction: column;
+
+  font: var(--fs)/var(--lh) var(--mono);
+
+  color: var(--fg-main);
+
+  text-shadow: var(--text-shadow);
+
+}
+
+
+
+#terminal-output {
+
+  white-space: pre-wrap;
+
+  word-break: break-all;
+
+  flex-grow: 1;
+
+}
+
+
+
+.line-welcome {
+
+  color: var(--fg-welcome);
+
+  font-size: 1.1rem;
+
+}
+
+
+
+.output-help {
+
+  color: var(--fg-help);
+
+}
+
+
+
+.line-system {
+
+  color: var(--fg-system);
+
+}
+
+
+
+// --- Prompt Area Improvements ---
+
+.prompt-wrapper {
+
+  border-top: 1px solid var(--border);
+
+  padding: 10px 14px 12px;
+
+  padding-bottom: 16px; // Add more space for the prompt
+
+}
+
+
+
+.terminal-input-line {
+
+  display: flex;
+
+  align-items: baseline;
+
+  gap: .6rem;
+
+}
+
+
+
+.prompt {
+
+  color: var(--accent-cyan);
+
+}
+
+
+
+.terminal-input {
+
+  flex: 1;
+
+  background: transparent;
+
+  border: 0;
+
+  outline: 0;
+
+  color: var(--fg-command);
+
+  font: inherit;
+
+  caret-color: var(--accent-cyan);
+
+}
+
+
+
+.command-output a {
+
+  color: var(--accent-blue-2);
+
+  text-shadow: none;
+
+  &:hover {
+
+    text-shadow: var(--glow-blue-weak);
+
+  }
+
+}
+
+
+
+// --- Footer Status Line ---
+
+.footer-line {
+
+  position: absolute;
+
+  bottom: 14px;
+
+  right: 18px;
+
+  font: 12px/1.4 var(--mono);
+
+  color: #a5b3cc;
+
+  opacity: .5;
+
+  letter-spacing: .5px;
+
+
+
+  &::before {
+
+    content: "> ";
+
+    color: var(--accent-violet);
+
+    opacity: .65;
+
+  }
+
+}
+
+
+
+// --- Animations ---
+
+@keyframes float {
+
+  0%, 100% { transform: translateY(0px); }
+
+  50% { transform: translateY(-6px); }
+
+}
+
+
+
+@keyframes ambient {
+
+  0%, 100% { box-shadow: var(--shadow), 0 0 20px rgba(143, 99, 255, 0.15); }
+
+  50% { box-shadow: var(--shadow), 0 0 35px rgba(143, 99, 255, 0.25); }
+
+}

@@ -1,21 +1,24 @@
-// _sass/components/_post.scss
-
 // Post list on blog page
 .post-list .post-card {
-  background-color: var(--color-card-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-  padding: calc(var(--spacing-unit) * 1.5);
-  margin-bottom: calc(var(--spacing-unit) * 1.5);
+  background-color: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: calc(var(--space) * 1.5);
+  margin-bottom: calc(var(--space) * 1.5);
+  box-shadow: var(--shadow);
 
   h2 a {
-    color: var(--color-text);
+    color: var(--fg);
     text-decoration: none;
+    &:hover {
+      color: var(--accent-2);
+      text-shadow: var(--glow-weak);
+    }
   }
 
   .post-meta {
     font-size: 0.9rem;
-    color: #888;
+    color: var(--muted);
     margin-bottom: 1rem;
   }
 }
@@ -23,32 +26,35 @@
 // Single post page
 .post {
   .post-header {
-    margin-bottom: calc(var(--spacing-unit) * 2);
-    border-bottom: 1px solid var(--color-border);
-    padding-bottom: var(--spacing-unit);
+    margin-bottom: calc(var(--space) * 2);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: var(--space);
   }
   .post-title {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
+    color: var(--fg);
   }
   .post-meta {
     font-size: 1rem;
-    color: #888;
+    color: var(--muted);
   }
   .post-content {
     h1, h2, h3, h4, h5, h6 {
       margin-top: 2rem;
+      color: var(--fg);
     }
     p, ul, ol {
       margin-bottom: 1.2rem;
+      color: var(--fg);
     }
     a {
-      color: var(--color-link);
+      color: var(--accent-2);
     }
     img {
       max-width: 100%;
       height: auto;
-      border-radius: var(--border-radius);
+      border-radius: var(--radius);
     }
   }
 }
@@ -57,22 +63,26 @@
 .pagination {
   display: flex;
   justify-content: space-between;
-  margin-top: calc(var(--spacing-unit) * 2);
+  margin-top: calc(var(--space) * 2);
 
   a, span {
     padding: 0.5rem 1rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--border-radius);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
     text-decoration: none;
   }
 
   a {
-    color: var(--color-link);
-    &:hover { background-color: var(--color-border); }
+    color: var(--accent-2);
+    &:hover { 
+      background-color: var(--panel);
+      border-color: var(--accent-2);
+      box-shadow: var(--glow-weak);
+    }
   }
 
   .disabled {
-    color: #888;
-    background-color: var(--color-sidebar-bg);
+    color: var(--muted);
+    background-color: transparent;
   }
 }

@@ -1,12 +1,31 @@
 ---
 layout: default
 ---
-<div class="terminal" id="terminal-window">
-  <div id="terminal-output" role="region" aria-live="polite"></div>
-  <div class="terminal-input-line">
-    <span class="prompt">>&nbsp;</span>
-    <input type="text" id="terminal-input" class="terminal-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Command input">
-    <span class="cursor"></span>
+<div class="mac-terminal-wrapper scene">
+  <div class="mac-terminal-glow-container">
+    <div class="mac-terminal">
+      <div class="bloom"></div>
+    <div class="header">
+      <div class="header__op">
+        <span class="header__op-icon header__op-icon--red"></span>
+        <span class="header__op-icon header__op-icon--yellow"></span>
+        <span class="header__op-icon header__op-icon--green"></span>
+      </div>
+      <div class="header__title">veru@log:~</div>
+      <div class="header__empty"></div>
+    </div>
+    <div class="body" id="terminal-window" role="region" aria-live="polite">
+      <div id="terminal-output">
+        <!-- Dynamic output will be rendered here by JavaScript -->
+      </div>
+    </div>
+    <div class="prompt-wrapper">
+      <div class="terminal-input-line">
+        <span class="prompt">>&nbsp;</span>
+        <input type="text" id="terminal-input" class="terminal-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Command input">
+      </div>
+    </div>
+    <div class="footer-line">STATUS: OPERATIONAL</div>
   </div>
 </div>
 
@@ -21,3 +40,6 @@ layout: default
 <script>
   window.__TERMINAL_COMMANDS__ = {{ site.data.commands | jsonify }};
 </script>
+
+<!-- UI Effects Script -->
+<script src="{{ '/assets/js/ui-effects.js' | relative_url }}"></script>
