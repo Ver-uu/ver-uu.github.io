@@ -1,10 +1,8 @@
 // _sass/components/_sidebar.scss
 
 .sidebar {
-  background-color: var(--panel);
+  @extend .panel;
   padding: calc(var(--space) * 1.5);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
   align-self: start; // Stick to the top of the grid cell
 }
 
@@ -33,7 +31,6 @@
 }
 
 .profile-links {
-  margin-top: var(--space);
   a {
     color: var(--accent-2);
     text-decoration: none;

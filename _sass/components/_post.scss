@@ -1,11 +1,14 @@
-// Post list on blog page
 .post-list .post-card {
-  background-color: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: calc(var(--space) * 1.5);
-  margin-bottom: calc(var(--space) * 1.5);
-  box-shadow: var(--shadow);
+  @extend .panel;
+  padding: var(--s5) var(--s5);
+  margin-bottom: var(--s4);
+  box-shadow: 0 0 20px rgba(143,99,255,.05);
+  transition: transform .2s ease, box-shadow .2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.2), 0 0 20px rgba(143,99,255,.1);
+  }
 
   h2 a {
     color: var(--fg);
@@ -16,10 +19,13 @@
     }
   }
 
-  .post-meta {
-    font-size: 0.9rem;
-    color: var(--muted);
-    margin-bottom: 1rem;
+  .post-meta, p {
+    font-size: 0.85rem;
+    color: rgba(200,200,255,0.6);
+    margin-bottom: 0.8rem;
+  }
+  p:last-of-type {
+    margin-bottom: 0;
   }
 }
 
@@ -55,6 +61,13 @@
       max-width: 100%;
       height: auto;
       border-radius: var(--radius);
+    }
+    hr {
+      border: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(180, 190, 255, .1), transparent);
+      margin: var(--s5) 0;
+      opacity: 0.5;
     }
   }
 }

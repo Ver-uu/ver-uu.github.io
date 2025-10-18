@@ -1,0 +1,39 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(143, 99, 255, .12);
+  color: var(--txt-dim);
+  border: 1px solid rgba(143, 99, 255, .22);
+  font-size: var(--f-sm);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--r-sm);
+  background: linear-gradient(180deg, rgba(143, 99, 255, .18), rgba(102, 202, 255, .14));
+  border: 1px solid rgba(180, 190, 255, .14);
+  color: var(--txt);
+  box-shadow: 0 6px 22px rgba(102, 202, 255, .09);
+  transition: filter 0.2s, transform 0.2s;
+}
+
+.btn:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+.toast {
+  position: fixed;
+  right: 20px;
+  bottom: 22px;
+  z-index: 99;
+  @extend .panel;
+  padding: 10px 14px;
+  font-size: var(--f-sm);
+}

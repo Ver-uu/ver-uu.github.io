@@ -38,7 +38,7 @@ class Terminal {
 
   async showWelcomeMessage() {
     const welcomeLines = [
-      { text: '### Welcome to Veru\'s Log!', classes: ['line-welcome'] },
+      { text: 'Welcome to Veru\'s Log!', classes: ['line-welcome'] },
       { text: 'Type `/help` to see a list of available commands.', classes: ['line-system'] },
       { text: ' ', classes: [] },
     ];
