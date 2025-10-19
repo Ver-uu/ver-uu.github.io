@@ -1,18 +1,20 @@
 .post-list .post-card {
   @extend .panel;
-  padding: var(--s5) var(--s5);
-  margin-bottom: var(--s4);
+  padding: 1.3rem 40px;
+  margin-bottom: 2rem;
   box-shadow: 0 0 20px rgba(143,99,255,.05);
-  transition: transform .2s ease, box-shadow .2s ease;
+  transition: transform .2s ease, box-shadow .3s ease;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0,0,0,.2), 0 0 20px rgba(143,99,255,.1);
+    box-shadow: var(--shadow), 0 0 25px rgba(143, 99, 255, 0.25);
   }
 
   h2 a {
     color: var(--fg);
     text-decoration: none;
+    display: inline-block;
+    margin-bottom: 0.25rem;
     &:hover {
       color: var(--accent-2);
       text-shadow: var(--glow-weak);
@@ -22,9 +24,6 @@
   .post-meta, p {
     font-size: 0.85rem;
     color: rgba(200,200,255,0.6);
-    margin-bottom: 0.8rem;
-  }
-  p:last-of-type {
     margin-bottom: 0;
   }
 }
@@ -65,9 +64,8 @@
     hr {
       border: 0;
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(180, 190, 255, .1), transparent);
-      margin: var(--s5) 0;
-      opacity: 0.5;
+      background: linear-gradient(90deg, transparent, rgba(180, 190, 255, .05) 50%, transparent);
+      margin: 3rem 0;
     }
   }
 }
