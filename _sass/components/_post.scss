@@ -52,9 +52,16 @@
     p, ul, ol {
       margin-bottom: 1.2rem;
       color: var(--fg);
+      line-height: 1.8;
     }
     a {
       color: var(--accent-2);
+      text-decoration: none;
+      border-bottom: 1px dotted rgba(102, 202, 255, 0.4);
+      transition: border-bottom .2s ease;
+      &:hover {
+        border-bottom: 1px solid rgba(102, 202, 255, 0.8);
+      }
     }
     img {
       max-width: 100%;
