@@ -24,12 +24,13 @@
 
   <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
-  <link rel="icon" href="{{ \"/assets/images/favicon.png\" | relative_url }}">
+  <link rel="icon" href="{{ '/assets/images/favicon.png' | relative_url }}">
 
   <!-- Google Fonts for new terminal design -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Source+Code+Pro&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/vis-network/styles/vis-network.min.css" type="text/css" />
 
   <!-- Theme switcher to prevent FOUC (Flash of Unstyled Content) -->
   <script>
@@ -60,8 +61,10 @@
 
   <!-- Defer scripts for performance -->
   <script defer src="{{ '/assets/js/theme.js' | relative_url }}"></script>
+  <script defer src="{{ '/assets/js/sidebar.js' | relative_url }}"></script>
   {% if page.layout == 'home' %}
     <script type="module" src="{{ '/assets/js/terminal.js' | relative_url }}"></script>
   {% endif %}
+  <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 </body>
 </html>

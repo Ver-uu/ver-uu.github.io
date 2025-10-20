@@ -111,14 +111,11 @@ class Terminal {
       case 'help':
         this.handleHelp();
         break;
-      case 'man':
-        this.handleMan(args);
+      case 'search':
+        this.handleSearch(args);
         break;
-      case 'theme':
-        this.handleTheme(args);
-        break;
-      case 'grep':
-        this.handleGrep(args);
+      case 'map':
+        window.location.href = '/map';
         break;
       case 'clear':
         this.handleClear();
@@ -175,6 +172,37 @@ class Terminal {
 
     if (results.length > 0) {
       const resultLines = results.map(post => `  <a href="${post.url}">${post.title}</a>`).join('\n');
+      this.printLine(resultLines, true);
+    } else {
+      this.printLine(`No posts found containing "${keyword}".`, false, ['line-system']);
+    }
+  }
+
+  handleSearch(args) {
+    if (args.length === 0) {
+      this.printLine('Usage: /search [keyword]', false, ['line-system']);
+      return;
+    }
+    if (!this.searchIndex) {
+      this.printLine('Search index is not loaded yet. Please try again in a moment.', false, ['line-system']);
+      return;
+    }
+    const keyword = args.join(' ').toLowerCase();
+    const results = this.searchIndex.filter(post => 
+      post.title.toLowerCase().includes(keyword) || 
+      post.content.toLowerCase().includes(keyword) ||
+      post.tags.join(' ').toLowerCase().includes(keyword)
+    );
+
+    if (results.length > 0) {
+      let resultLines = `Searching for '${keyword}'... ${results.length} posts found.\n\n`;
+      results.forEach(post => {
+        const postDate = new Date(post.date).toLocaleDateString('en-CA'); // YYYY-MM-DD
+        resultLines += `[${postDate}] <a href="${post.url}">${post.title}</a>\n`;
+        if (post.tags.length > 0) {
+          resultLines += `> Tags: #${post.tags.join(' #')}\n\n`;
+        }
+      });
       this.printLine(resultLines, true);
     } else {
       this.printLine(`No posts found containing "${keyword}".`, false, ['line-system']);

@@ -4,11 +4,6 @@
   @extend .panel;
   padding: calc(var(--space) * 1.5);
   align-self: start; // Stick to the top of the grid cell
-  transition: box-shadow .3s ease;
-
-  &:hover {
-    box-shadow: var(--shadow), 0 0 25px rgba(143, 99, 255, 0.25);
-  }
 }
 
 .profile {
@@ -60,28 +55,58 @@
   list-style: none;
   padding: 0;
   margin: 0;
+}
 
-  li {
-    margin-bottom: 8px;
+.category-item {
+  margin-bottom: 8px;
+}
+
+.category-link {
+  display: block;
+  padding: 10px 12px;
+  text-decoration: none;
+  text-align: center;
+  color: var(--fg-muted);
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: all .2s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--fg-main);
+    box-shadow: var(--glow-blue-weak);
   }
+}
 
-  li a {
+.post-list-in-category {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .3s ease-out, padding .3s ease-out;
+
+  a {
     display: block;
-    padding: 10px 12px;
-    text-decoration: none;
-    text-align: center;
+    padding: 8px 12px;
+    font-size: 0.85rem;
     color: var(--fg-muted);
-    background-color: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 8px;
-    font-size: 0.9rem;
-    transition: all .2s ease;
+    border-radius: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.05);
       color: var(--fg-main);
-      box-shadow: var(--glow-blue-weak);
-      text-shadow: none;
     }
   }
+}
+
+.category-item.active .post-list-in-category {
+  max-height: 500px; // 충분한 높이
+  padding: 8px 0;
+  transition: max-height .4s ease-in, padding .4s ease-in;
 }

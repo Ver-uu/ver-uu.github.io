@@ -18,8 +18,13 @@
     <h3 class="categories-title">Categories</h3>
     <ul class="categories-list">
       {% for category in site.categories %}
-        <li>
-          <a href="#">{{ category | first }} ({{ category | last | size }})</a>
+        <li class="category-item">
+          <a href="#" class="category-link">{{ category | first }} ({{ category | last | size }})</a>
+          <ul class="post-list-in-category">
+            {% for post in category.last %}
+              <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+            {% endfor %}
+          </ul>
         </li>
       {% endfor %}
     </ul>
