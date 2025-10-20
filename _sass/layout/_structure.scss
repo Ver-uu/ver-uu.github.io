@@ -26,6 +26,7 @@
 .site-nav a {
   margin-left: var(--space);
   text-decoration: none;
+  color: var(--accent-cyan);
   transition: text-shadow 0.3s ease;
 
   &:hover {
