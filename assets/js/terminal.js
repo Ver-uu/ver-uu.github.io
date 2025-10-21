@@ -1,5 +1,6 @@
 // assets/js/terminal.js
 import { switchTheme } from './theme.js';
+import { drawGraph } from './graph.js';
 
 class Terminal {
   constructor() {
@@ -10,8 +11,18 @@ class Terminal {
     this.searchIndex = null;
     this.history = [];
     this.historyIndex = -1;
+    this.statusElement = document.getElementById('terminal-status');
+    this.suggestionsElement = document.getElementById('autocomplete-suggestions');
+    this.currentSuggestions = [];
+    this.suggestionIndex = -1;
 
     this.init();
+  }
+
+  updateStatus(message) {
+    if (this.statusElement) {
+      this.statusElement.textContent = `STATUS: ${message}`;
+    }
   }
 
   async init() {
@@ -19,10 +30,12 @@ class Terminal {
     await this.showWelcomeMessage();
     this.input.focus();
     this.fetchSearchIndex();
+    this.updateStatus('OPERATIONAL');
   }
 
   addEventListeners() {
     this.input.addEventListener('keydown', (e) => this.handleInput(e));
+    this.input.addEventListener('input', (e) => this.handleAutocomplete(e));
     this.terminalWindow.addEventListener('click', () => this.input.focus());
   }
 
@@ -39,6 +52,7 @@ class Terminal {
   async showWelcomeMessage() {
     const welcomeLines = [
       { text: 'Welcome to Veru\'s Log!', classes: ['line-welcome'] },
+      { text: ' ', classes: [] },
       { text: 'Type `/help` to see a list of available commands.', classes: ['line-system'] },
       { text: ' ', classes: [] },
     ];
@@ -70,6 +84,40 @@ class Terminal {
     });
   }
 
+  handleAutocomplete(e) {
+    const inputValue = e.target.value.trim();
+    this.currentSuggestions = [];
+    this.suggestionIndex = -1;
+    this.suggestionsElement.innerHTML = '';
+    this.suggestionsElement.style.display = 'none';
+
+    if (inputValue.startsWith('/')) {
+      const commandPrefix = inputValue.substring(1).toLowerCase();
+      this.currentSuggestions = this.commands.filter(cmd => 
+        cmd.name.startsWith(commandPrefix)
+      );
+
+      if (this.currentSuggestions.length > 0) {
+        this.suggestionsElement.style.display = 'block';
+        this.currentSuggestions.forEach((cmd, index) => {
+          const div = document.createElement('div');
+          div.classList.add('suggestion-item');
+          div.textContent = `/${cmd.name} - ${cmd.description}`;
+          div.dataset.command = `/${cmd.name}`;
+          div.addEventListener('click', () => this.selectSuggestion(cmd.name));
+          this.suggestionsElement.appendChild(div);
+        });
+      }
+    }
+  }
+
+  selectSuggestion(commandName) {
+    this.input.value = `/${commandName}`;
+    this.suggestionsElement.innerHTML = '';
+    this.suggestionsElement.style.display = 'none';
+    this.input.focus();
+  }
+
   handleInput(e) {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -81,15 +129,30 @@ class Terminal {
         this.historyIndex = this.history.length;
       }
       this.input.value = '';
+      this.suggestionsElement.innerHTML = '';
+      this.suggestionsElement.style.display = 'none';
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      if (this.currentSuggestions.length > 0 && this.suggestionIndex !== -1) {
+        this.selectSuggestion(this.currentSuggestions[this.suggestionIndex].name);
+      } else if (this.currentSuggestions.length === 1) {
+        this.selectSuggestion(this.currentSuggestions[0].name);
+      }
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-      if (this.historyIndex > 0) {
+      if (this.currentSuggestions.length > 0) {
+        this.suggestionIndex = (this.suggestionIndex - 1 + this.currentSuggestions.length) % this.currentSuggestions.length;
+        this.highlightSuggestion();
+      } else if (this.historyIndex > 0) {
         this.historyIndex--;
         this.input.value = this.history[this.historyIndex];
       }
     } else if (e.key === 'ArrowDown') {
       e.preventDefault();
-      if (this.historyIndex < this.history.length - 1) {
+      if (this.currentSuggestions.length > 0) {
+        this.suggestionIndex = (this.suggestionIndex + 1) % this.currentSuggestions.length;
+        this.highlightSuggestion();
+      } else if (this.historyIndex < this.history.length - 1) {
         this.historyIndex++;
         this.input.value = this.history[this.historyIndex];
       } else {
@@ -99,9 +162,23 @@ class Terminal {
     }
   }
 
+  highlightSuggestion() {
+    const items = this.suggestionsElement.querySelectorAll('.suggestion-item');
+    items.forEach((item, index) => {
+      if (index === this.suggestionIndex) {
+        item.classList.add('selected');
+        this.input.value = item.dataset.command; // Update input with selected command
+      } else {
+        item.classList.remove('selected');
+      }
+    });
+  }
+
   processCommand(inputValue) {
+    this.updateStatus('PROCESSING...');
     if (!inputValue.startsWith('/')) {
       this.printLine(`-bash: ${inputValue}: command not found`, false, ['line-system']);
+      this.updateStatus('ERROR');
       return;
     }
 
@@ -110,20 +187,52 @@ class Terminal {
     switch (command.toLowerCase()) {
       case 'help':
         this.handleHelp();
+        this.updateStatus('HELP DISPLAYED');
         break;
       case 'search':
         this.handleSearch(args);
         break;
       case 'map':
-        window.location.href = '/map';
+        const mapModal = document.getElementById('map-modal');
+        if (!mapModal) {
+          this.printLine('Error: Map modal not found.', false, ['line-system']);
+          this.updateStatus('ERROR');
+          return;
+        }
+        const closeButton = mapModal.querySelector('.close-button');
+        mapModal.style.display = 'flex';
+        this.updateStatus('LOADING MAP...');
+        
+        // Ensure graph is drawn only after modal is visible
+        setTimeout(() => {
+          const closeButton = mapModal.querySelector('.close-button');
+          if (closeButton) {
+            closeButton.onclick = function() {
+              mapModal.style.display = 'none';
+              this.updateStatus('OPERATIONAL'); // Reset status when modal closes
+            }.bind(this);
+          }
+          drawGraph(); // Call drawGraph when modal opens
+          this.updateStatus('MAP LOADED');
+        }, 100); // Small delay to ensure modal is rendered
+
+        window.onclick = function(event) {
+          if (event.target == mapModal) {
+            mapModal.style.display = 'none';
+            this.updateStatus('OPERATIONAL'); // Reset status when modal closes
+          }
+        }.bind(this);
         break;
       case 'clear':
         this.handleClear();
+        this.updateStatus('SCREEN CLEARED');
         break;
       default:
         this.printLine(`-bash: /${command}: command not found`, false, ['line-system']);
+        this.updateStatus('ERROR');
     }
     this.scrollToBottom();
+    this.updateStatus('OPERATIONAL'); // Reset to operational after command
   }
 
   handleHelp() {
@@ -131,67 +240,23 @@ class Terminal {
     this.printLine(helpText, false, ['output-help']);
   }
 
-  handleMan(args) {
-    if (args.length === 0) {
-      this.printLine('Usage: /man [command]', false, ['line-system']);
-      return;
-    }
-    const cmdName = args[0];
-    const cmd = this.commands.find(c => c.name === cmdName);
-    if (cmd) {
-      this.printLine(cmd.man_page);
-    } else {
-      this.printLine(`No manual entry for ${cmdName}`, false, ['line-system']);
-    }
-  }
-
-  handleTheme(args) {
-    const theme = args[0];
-    if (theme === 'light' || theme === 'dark') {
-      switchTheme(theme);
-      this.printLine(`Theme switched to ${theme}.`, false, ['line-system']);
-    } else {
-      this.printLine('Usage: /theme [light|dark]', false, ['line-system']);
-    }
-  }
-
-  handleGrep(args) {
-    if (args.length === 0) {
-      this.printLine('Usage: /grep [keyword]', false, ['line-system']);
-      return;
-    }
-    if (!this.searchIndex) {
-      this.printLine('Search index is not loaded yet. Please try again in a moment.', false, ['line-system']);
-      return;
-    }
-    const keyword = args.join(' ').toLowerCase();
-    const results = this.searchIndex.filter(post => 
-      post.title.toLowerCase().includes(keyword) || 
-      post.content.toLowerCase().includes(keyword)
-    );
-
-    if (results.length > 0) {
-      const resultLines = results.map(post => `  <a href="${post.url}">${post.title}</a>`).join('\n');
-      this.printLine(resultLines, true);
-    } else {
-      this.printLine(`No posts found containing "${keyword}".`, false, ['line-system']);
-    }
-  }
-
   handleSearch(args) {
     if (args.length === 0) {
       this.printLine('Usage: /search [keyword]', false, ['line-system']);
+      this.updateStatus('ERROR');
       return;
     }
     if (!this.searchIndex) {
       this.printLine('Search index is not loaded yet. Please try again in a moment.', false, ['line-system']);
+      this.updateStatus('ERROR');
       return;
     }
     const keyword = args.join(' ').toLowerCase();
+    this.updateStatus('PROCESSING...');
     const results = this.searchIndex.filter(post => 
       post.title.toLowerCase().includes(keyword) || 
       post.content.toLowerCase().includes(keyword) ||
-      post.tags.join(' ').toLowerCase().includes(keyword)
+      (post.tags && post.tags.join(' ').toLowerCase().includes(keyword))
     );
 
     if (results.length > 0) {
@@ -199,13 +264,15 @@ class Terminal {
       results.forEach(post => {
         const postDate = new Date(post.date).toLocaleDateString('en-CA'); // YYYY-MM-DD
         resultLines += `[${postDate}] <a href="${post.url}">${post.title}</a>\n`;
-        if (post.tags.length > 0) {
+        if (post.tags && post.tags.length > 0) {
           resultLines += `> Tags: #${post.tags.join(' #')}\n\n`;
         }
       });
       this.printLine(resultLines, true);
+      this.updateStatus(`SEARCH COMPLETE (${results.length} results)`);
     } else {
       this.printLine(`No posts found containing "${keyword}".`, false, ['line-system']);
+      this.updateStatus('NO RESULTS');
     }
   }
 

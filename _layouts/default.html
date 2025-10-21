@@ -31,6 +31,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Source+Code+Pro&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/vis-network/styles/vis-network.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
   <!-- Theme switcher to prevent FOUC (Flash of Unstyled Content) -->
   <script>
@@ -60,11 +61,19 @@
   </div>
 
   <!-- Defer scripts for performance -->
-  <script defer src="{{ '/assets/js/theme.js' | relative_url }}"></script>
+  <script type="module" defer src="{{ '/assets/js/theme.js' | relative_url }}"></script>
   <script defer src="{{ '/assets/js/sidebar.js' | relative_url }}"></script>
+  <script type="module" src="{{ '/assets/js/graph.js' | relative_url }}"></script>
   {% if page.layout == 'home' %}
     <script type="module" src="{{ '/assets/js/terminal.js' | relative_url }}"></script>
   {% endif %}
   <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+
+  <div id="map-modal" class="modal" style="display: none;">
+    <div class="modal-content panel">
+      <span class="close-button">&times;</span>
+      <div id="knowledge-graph-modal"></div>
+    </div>
+  </div>
 </body>
 </html>

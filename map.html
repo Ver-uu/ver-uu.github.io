@@ -1,8 +1,15 @@
 ---
-layout: default
+layout: sidebar_layout
 permalink: /map/
 ---
 
-<div id="knowledge-graph"></div>
+<div class="main-content-with-sidebar panel">
+  <h1 class="page-title">Knowledge Graph</h1>
+  <div id="knowledge-graph-container" style="width: 100%; height: 600px;"></div>
+  <div style="text-align: center; margin-top: 20px;">
+    <button id="start-timelapse" class="button-glass">Start Timelapse</button>
+    <button id="reset-graph" class="button-glass">Reset Graph</button>
+  </div>
+</div>
 
 <script type="module" src="{{ '/assets/js/graph.js' | relative_url }}"></script>

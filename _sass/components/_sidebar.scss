@@ -2,7 +2,7 @@
 
 .sidebar {
   @extend .panel;
-  padding: calc(var(--space) * 1.5);
+  padding: calc(var(--space) * 1.4);
   align-self: start; // Stick to the top of the grid cell
 }
 
@@ -33,20 +33,14 @@
 .profile-links {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 15px; // Increased gap for icons
   a {
-    display: inline-block;
-    padding: 8px 16px;
-    border: 1px solid rgba(143, 99, 255, 0.4);
-    border-radius: 999px;
-    background-color: transparent;
-    color: var(--accent-cyan);
+    color: var(--accent-cyan); // Icon color
+    font-size: 1.5rem; // Icon size
     text-decoration: none;
-    transition: all .2s ease;
+    transition: color .2s ease;
     &:hover {
-      background-color: rgba(143, 99, 255, 0.1);
-      border-color: var(--accent-violet);
-      box-shadow: var(--glow-blue-weak);
+      color: var(--fg-main); // Brighter on hover
     }
   }
 }
@@ -122,7 +116,10 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-align: left; // Align text to left
+    text-align: left;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
 
     &:hover {
       background-color: transparent;
@@ -131,8 +128,90 @@
   }
 }
 
-.category-item.active .post-list-in-category {
-  max-height: 1000px; // 충분히 큰 값으로 설정
-  padding: 8px 0;
-  transition: max-height .5s ease-in, padding .5s ease-in;
-}
+  
+
+      
+
+  
+
+      .custom-tooltip {
+
+  
+
+        position: absolute;
+
+  
+
+        background-color: rgba(12, 14, 20, 0.95);
+
+  
+
+        border: 1px solid rgba(180, 190, 255, 0.1);
+
+  
+
+        border-radius: 5px;
+
+  
+
+        padding: 8px 12px;
+
+  
+
+        color: var(--fg-main);
+
+  
+
+        font-size: 0.85rem;
+
+  
+
+        white-space: nowrap;
+
+  
+
+        z-index: 1001;
+
+  
+
+        pointer-events: none;
+
+  
+
+        opacity: 0;
+
+  
+
+        transition: opacity 0.2s ease-in-out;
+
+  
+
+      }
+
+  
+
+      
+
+  
+
+      .custom-tooltip.show {
+
+  
+
+        opacity: 1;
+
+  
+
+      }
+
+    
+
+    .category-item.active .post-list-in-category {
+
+      max-height: 1000px; // 충분히 큰 값으로 설정
+
+      padding: 8px 0;
+
+      transition: max-height .5s ease-in, padding .5s ease-in;
+
+    }

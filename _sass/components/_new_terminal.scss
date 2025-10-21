@@ -253,24 +253,52 @@
 
 
 
-.terminal-input-line {
+  .terminal-input-line {
 
-  display: flex;
+    display: flex;
 
-  align-items: baseline;
+    align-items: baseline;
 
-  gap: .6rem;
+    gap: .6rem;
 
-}
+  }
 
 
 
-.prompt {
+  .autocomplete-suggestions {
+    position: absolute;
+    bottom: 60px; // Adjust based on footer height
+    left: 14px;
+    right: 14px;
+    background-color: rgba(12, 14, 20, 0.9);
+    border: 1px solid rgba(180, 190, 255, 0.1);
+    border-radius: 8px;
+    padding: 5px 0;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 10;
+    display: none; // Hidden by default
 
-  color: var(--accent-cyan);
+    .suggestion-item {
+      padding: 5px 10px;
+      cursor: pointer;
+      color: var(--fg-main);
 
-}
+      &:hover,
+      &.selected {
+        background-color: rgba(180, 190, 255, 0.1);
+        color: var(--accent-cyan);
+      }
+    }
+  }
 
+
+
+  .prompt {
+
+    color: var(--accent-cyan);
+
+  }
 
 
 .terminal-input {
