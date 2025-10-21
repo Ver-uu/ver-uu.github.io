@@ -71,13 +71,13 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex; // Use flexbox for centering
+  display: flex; /* Use flexbox for centering */
   flex-direction: column;
-  align-items: center; // Center items horizontally
+  align-items: center; /* Center items horizontally */
 
   li {
     margin-bottom: 8px;
-    width: 100%; // Ensure li takes full width for centering a
+    width: 100%; /* Ensure li takes full width for centering a */
   }
 
   li a {
@@ -103,115 +103,54 @@
 .post-list-in-category {
   list-style: none;
   padding: 0;
-  margin: 8px 0 0 0;
+  margin: 8px 0 0 15px; /* Indent posts */
   max-height: 0;
   overflow: hidden;
   transition: max-height .4s ease-out, padding .4s ease-out;
 
   a {
     display: block;
-    padding: 4px 0;
+    padding: 2px 0 !important;
     font-size: 0.85rem;
     color: var(--fg-muted);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: nowrap; /* Re-add for ellipsis */
+    overflow: hidden; /* Re-add for ellipsis */
+    text-overflow: ellipsis; /* Re-add for ellipsis */
     text-align: left;
-    background-color: transparent;
-    border: none;
-    border-radius: 0;
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
 
     &:hover {
-      background-color: transparent;
-      color: var(--fg-main);
+      color: var(--accent-cyan);
+      text-shadow: 0 0 5px var(--accent-cyan), 0 0 10px var(--accent-cyan); /* Cyberpunk glow */
+      background-color: rgba(102, 202, 255, 0.05); /* Subtle background highlight */
     }
   }
 }
 
-  
+.custom-tooltip {
+  position: absolute;
+  background-color: rgba(12, 14, 20, 0.95);
+  border: 1px solid rgba(180, 190, 255, 0.1);
+  border-radius: 5px;
+  padding: 8px 12px;
+  color: var(--fg-main);
+  font-size: 0.85rem;
+  white-space: nowrap;
+  z-index: 1001;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  box-shadow: 0 0 15px rgba(102, 202, 255, 0.3); /* Cyberpunk glow for tooltip */
+}
 
-      
+.custom-tooltip.show {
+  opacity: 1;
+}
 
-  
-
-      .custom-tooltip {
-
-  
-
-        position: absolute;
-
-  
-
-        background-color: rgba(12, 14, 20, 0.95);
-
-  
-
-        border: 1px solid rgba(180, 190, 255, 0.1);
-
-  
-
-        border-radius: 5px;
-
-  
-
-        padding: 8px 12px;
-
-  
-
-        color: var(--fg-main);
-
-  
-
-        font-size: 0.85rem;
-
-  
-
-        white-space: nowrap;
-
-  
-
-        z-index: 1001;
-
-  
-
-        pointer-events: none;
-
-  
-
-        opacity: 0;
-
-  
-
-        transition: opacity 0.2s ease-in-out;
-
-  
-
-      }
-
-  
-
-      
-
-  
-
-      .custom-tooltip.show {
-
-  
-
-        opacity: 1;
-
-  
-
-      }
-
-    
-
-    .category-item.active .post-list-in-category {
-
-      max-height: 1000px; // 충분히 큰 값으로 설정
-
-      padding: 8px 0;
-
-      transition: max-height .5s ease-in, padding .5s ease-in;
-
-    }
+.category-item.active .post-list-in-category {
+  max-height: 1000px; /* 충분히 큰 값으로 설정 */
+  padding: 8px 0;
+  transition: max-height .5s ease-in, padding .5s ease-in;
+}

@@ -22,7 +22,7 @@
           <a href="#" class="category-link">{{ category | first }} ({{ category | last | size }})</a>
           <ul class="post-list-in-category">
             {% for post in category.last %}
-              <li><a href="{{ post.url | relative_url }}" data-full-title="{{ post.title }}">{{ post.title }}</a></li>
+              <li><a href="{{ post.url | relative_url }}" data-full-title="{{ post.title }}" title="{{ post.title }}">{{ post.title }}</a></li>
             {% endfor %}
           </ul>
         </li>

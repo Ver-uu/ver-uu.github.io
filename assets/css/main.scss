@@ -20,14 +20,4 @@
 @import "components/graph";
 @import "components/modal";
 
-/* 임시 디버깅 CSS: 터미널이 강제로 표시되도록 합니다. */
-.mac-terminal-wrapper {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  position: relative !important;
-  z-index: 9999 !important;
-}
-/* 임시 디버깅 CSS 끝 */
-
 // You can add more specific or general styles here if needed
