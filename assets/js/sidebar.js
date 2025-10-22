@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(tooltip);
         
         const rect = link.getBoundingClientRect();
-        tooltip.style.left = `${rect.left + window.scrollX}px`;
+        tooltip.style.left = `${rect.left + window.scrollX + (rect.width / 2) - (tooltip.offsetWidth / 2)}px`;
         tooltip.style.top = `${rect.top + window.scrollY - tooltip.offsetHeight - 10}px`; // Position above link
         tooltip.classList.add('show');
       }
