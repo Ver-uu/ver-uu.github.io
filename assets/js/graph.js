@@ -16,55 +16,88 @@ export async function drawGraph(containerId) {
   const style = getComputedStyle(document.documentElement);
   const accentViolet = style.getPropertyValue('--accent-violet').trim();
   const accentCyan = style.getPropertyValue('--accent-cyan').trim();
+  const neonMagenta = style.getPropertyValue('--neon-magenta').trim(); // New variable
+  const neonYellow = style.getPropertyValue('--neon-yellow').trim(); // New variable
   const panelBg = style.getPropertyValue('--panel').trim();
   const fgMain = style.getPropertyValue('--fg-main').trim();
   const border = style.getPropertyValue('--border').trim();
+
+  // Define a color palette for node groups
+  const nodeColorPalette = {
+    'default': {
+      background: 'radial-gradient(circle at 30% 30%, #fff, ' + accentCyan + ')',
+      border: 'rgba(0,240,255,0.35)',
+      highlight: {
+        background: 'radial-gradient(circle at 30% 30%, #fff, ' + accentCyan + ')',
+        border: 'rgba(0,240,255,0.45)'
+      }
+    },
+    'security': { // Example category
+      background: 'radial-gradient(circle at 30% 30%, #fff, ' + neonMagenta + ')',
+      border: 'rgba(255,62,198,0.35)',
+      highlight: {
+        background: 'radial-gradient(circle at 30% 30%, #fff, ' + neonMagenta + ')',
+        border: 'rgba(255,62,198,0.45)'
+      }
+    },
+    'development': { // Example category
+      background: 'radial-gradient(circle at 30% 30%, #fff, ' + neonYellow + ')',
+      border: 'rgba(255,210,74,0.35)',
+      highlight: {
+        background: 'radial-gradient(circle at 30% 30%, #fff, ' + neonYellow + ')',
+        border: 'rgba(255,210,74,0.45)'
+      }
+    },
+    'general': { // Example category
+      background: 'radial-gradient(circle at 30% 30%, #fff, ' + accentViolet + ')',
+      border: 'rgba(143,99,255,0.35)',
+      highlight: {
+        background: 'radial-gradient(circle at 30% 30%, #fff, ' + accentViolet + ')',
+        border: 'rgba(143,99,255,0.45)'
+      }
+    }
+    // Add more categories as needed
+  };
 
   // Graph options
   const options = {
     nodes: {
       shape: 'dot',
-      size: 10,
+      size: 10, // Reduced size as requested
       font: {
         size: 12,
-        color: 'rgba(173, 216, 230, 0.9)', // Light blue for font
-        face: 'Source Code Pro'
+        color: 'rgba(200,220,255,0.8)', // Adapted from .label color
+        face: style.getPropertyValue('--mono').trim() // Use the updated --mono variable
       },
       borderWidth: 2,
-      color: {
-        border: 'rgba(100, 149, 237, 0.7)', // Cornflower blue border
-        background: 'rgba(25, 25, 112, 0.6)', // Midnight blue background
-        highlight: {
-          border: 'rgba(0, 191, 255, 1)', // Deep sky blue highlight border
-          background: 'rgba(25, 25, 112, 0.8)' // Slightly less transparent on highlight
-        }
-      },
+      // Removed default color object, colors will be set per node
       shadow: {
         enabled: true,
-        color: 'rgba(0, 191, 255, 0.7)', // Deep sky blue glow
-        size: 10, // Larger glow size
+        color: 'rgba(0,240,255,0.35)', // Adapted from .dot box-shadow
+        size: 10,
         x: 0,
         y: 0
-      },
-      inherit: false
+      }
+      // Removed inherit: false
     },
     edges: {
-      width: 1,
+      width: 0.6, // Adapted from .link stroke-width
       color: { 
-        color: 'rgba(100, 149, 237, 0.5)', // Cornflower blue for edges
-        highlight: 'rgba(0, 191, 255, 0.8)' // Deep sky blue highlight
+        color: 'rgba(0,240,255,0.18)', // Adapted from .link stroke
+        highlight: 'rgba(0,240,255,0.4)' // Brighter highlight
       },
       smooth: {
         type: 'continuous'
       },
       shadow: {
         enabled: true,
-        color: 'rgba(100, 149, 237, 0.3)', // Subtle cornflower blue glow for edges
-        size: 5, // Slightly larger glow
+        color: 'rgba(0,240,255,0.08)', // Adapted from .link filter drop-shadow
+        size: 6,
         x: 0,
         y: 0
       },
-      inherit: false
+      dashes: [6, 6], // Corrected from dashing: true and dash: [6,6]
+      // Removed inherit: false
     },
     physics: {
       stabilization: false,
@@ -104,7 +137,8 @@ export async function drawGraph(containerId) {
   function addNextNode() {
     if (nodeIndex < sortedNodes.length) {
       const node = sortedNodes[nodeIndex];
-      nodes.add(node);
+      const nodeColor = nodeColorPalette[node.group] || nodeColorPalette['default'];
+      nodes.add({ ...node, color: nodeColor });
 
       // Add edges connected to this node
       sortedLinks.filter(link => link.from === node.id || link.to === node.id)
@@ -138,7 +172,10 @@ export async function drawGraph(containerId) {
     nodeIndex = 0;
     edgeIndex = 0;
     // Add all nodes and edges for initial full display
-    graphData.nodes.forEach(node => nodes.add(node));
+    graphData.nodes.forEach(node => {
+      const nodeColor = nodeColorPalette[node.group] || nodeColorPalette['default'];
+      nodes.add({ ...node, color: nodeColor });
+    });
     graphData.links.forEach(link => edges.add(link));
     network.fit(); // Fit the graph to the view
     network.redraw(); // Explicitly redraw the network
@@ -158,4 +195,4 @@ export async function drawGraph(containerId) {
   resetGraph();
 }
 
-drawGraph();
+

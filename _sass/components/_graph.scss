@@ -1,13 +1,22 @@
 #knowledge-graph-container {
+  --pad:40px; /* Define --pad locally for consistency with .board */
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: rgba(15, 20, 29, .5); /* Match terminal background */
-  backdrop-filter: blur(14px) saturate(120%);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow), var(--glow-blue-weak), var(--glow-violet-weak);
-  overflow: hidden; /* Hide overflow from graph */
+  margin:0 auto; /* Adapted from .board */
+  border-radius:18px; /* Adapted from .board */
+  padding:var(--pad); /* Adapted from .board */
+  width:84%; /* Adapted from .board */
+  height:78vh; /* Adapted from .board */
+  max-width:1200px; /* Adapted from .board */
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); /* Adapted from .board */
+  border:1px solid var(--glass-border); /* Adapted from .board */
+  box-shadow:
+    0 12px 40px rgba(0,0,0,0.7),
+    inset 0 1px 0 rgba(255,255,255,0.02),
+    0 0 60px rgba(0,240,255,0.01); /* Adapted from .board */
+  backdrop-filter: blur(8px) saturate(120%); /* Adapted from .board */
+  overflow:hidden; /* Hide overflow from graph */
 }
 
 .graph-canvas-wrapper {
@@ -15,8 +24,16 @@
   width: 100%;
   height: 100%; /* vis-network needs explicit height */
 }
+/* SVG 연결선 스타일 (viewBox 좌표로 %) */
+.links{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;}
+.link{fill:none;stroke:rgba(0,240,255,0.18);stroke-width:0.6;filter:drop-shadow(0 0 6px rgba(0,240,255,0.08)); stroke-dasharray:6 6; animation:dash 6s linear infinite;}
+ @keyframes dash{to{stroke-dashoffset:480}}
 
-.graph-controls {
+/* 접근성: 줄임 애니메이션 */
+ @media (prefers-reduced-motion: reduce){
+  .links, .glitch::before, .glitch::after {animation:none}
+  .node:hover .dot{transition:none}
+}.graph-controls {
   display: flex;
   justify-content: center;
   gap: 15px;
@@ -70,20 +87,7 @@
   flex-direction: column;
 }
 
-.knowledge-graph-container {
-  position: relative;
-  background-color: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow), var(--glow-blue-weak), var(--glow-violet-weak);
-  width: 80vw; /* Responsive width */
-  max-width: 1200px;
-  height: 80vh; /* Responsive height */
-  max-height: 800px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden; /* Hide overflow from graph */
-}
+
 
 .close-overlay-button {
   position: absolute;

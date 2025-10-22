@@ -2,6 +2,13 @@
   // Palette
   --bg: #0b0e11;
   --panel: #0f141d;
+  --bg-1: #090a0f;
+  --bg-2: #0f1720;
+  --neon-cyan: #00f0ff;
+  --neon-magenta: #ff3ec6;
+  --neon-yellow: #ffd24a;
+  --glass-border: rgba(255,255,255,0.06);
+  --panel-accent: rgba(0,240,255,0.06);
   
   // Foreground Colors
   --fg-main: #b8c0d9;
@@ -25,7 +32,7 @@
   --shadow: 0 12px 28px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(255, 255, 255, .03);
 
   // Typography
-  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --mono: 'Share Tech Mono', 'Orbitron', ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
   --fs: 15px;
   --lh: 1.55;
 
