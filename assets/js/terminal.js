@@ -193,35 +193,53 @@ class Terminal {
         this.handleSearch(args);
         break;
       case 'map':
-        const mapModal = document.getElementById('map-modal');
-        if (!mapModal) {
-          this.printLine('Error: Map modal not found.', false, ['line-system']);
+        const graphOverlay = document.getElementById('graph-overlay');
+        const knowledgeGraphContainer = document.getElementById('knowledge-graph-container');
+        const closeOverlayButton = graphOverlay ? graphOverlay.querySelector('.close-overlay-button') : null;
+
+        if (!graphOverlay || !knowledgeGraphContainer) {
+          this.printLine('Error: Graph overlay or container not found.', false, ['line-system']);
           this.updateStatus('ERROR');
           return;
         }
-        const closeButton = mapModal.querySelector('.close-button');
-        mapModal.style.display = 'flex';
+
+        const closeGraphOverlay = () => {
+          graphOverlay.style.display = 'none';
+          this.updateStatus('OPERATIONAL');
+          window.removeEventListener('keydown', handleEscKey);
+          if (closeOverlayButton) {
+            closeOverlayButton.removeEventListener('click', closeGraphOverlay);
+          }
+          graphOverlay.removeEventListener('click', handleOverlayClick);
+        };
+
+        const handleEscKey = (e) => {
+          if (e.key === 'Escape') {
+            closeGraphOverlay();
+          }
+        };
+
+        const handleOverlayClick = (event) => {
+          if (event.target === graphOverlay) {
+            closeGraphOverlay();
+          }
+        };
+
+        if (closeOverlayButton) {
+          closeOverlayButton.addEventListener('click', closeGraphOverlay);
+        }
+        graphOverlay.addEventListener('click', handleOverlayClick);
+        window.addEventListener('keydown', handleEscKey);
+
+        graphOverlay.style.display = 'flex';
         this.updateStatus('LOADING MAP...');
         
-        // Ensure graph is drawn only after modal is visible
-        setTimeout(() => {
-          const closeButton = mapModal.querySelector('.close-button');
-          if (closeButton) {
-            closeButton.onclick = function() {
-              mapModal.style.display = 'none';
-              this.updateStatus('OPERATIONAL'); // Reset status when modal closes
-            }.bind(this);
-          }
-          drawGraph(); // Call drawGraph when modal opens
-          this.updateStatus('MAP LOADED');
-        }, 100); // Small delay to ensure modal is rendered
-
-        window.onclick = function(event) {
-          if (event.target == mapModal) {
-            mapModal.style.display = 'none';
-            this.updateStatus('OPERATIONAL'); // Reset status when modal closes
-          }
-        }.bind(this);
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => { // Double rAF to ensure layout is calculated
+            drawGraph('knowledge-graph-container'); // Pass the container ID
+            this.updateStatus('MAP LOADED');
+          });
+        });
         break;
       case 'clear':
         this.handleClear();

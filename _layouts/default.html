@@ -67,12 +67,24 @@
   {% if page.layout == 'home' %}
     <script type="module" src="{{ '/assets/js/terminal.js' | relative_url }}"></script>
   {% endif %}
-  <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js" defer></script>
 
   <div id="map-modal" class="modal" style="display: none;">
     <div class="modal-content panel">
       <span class="close-button">&times;</span>
       <div id="knowledge-graph-modal"></div>
+    </div>
+  </div>
+  <!-- The graph will be rendered on a separate page -->
+
+  <div id="graph-overlay" class="graph-overlay">
+    <div id="knowledge-graph-container" class="knowledge-graph-container">
+      <span class="close-overlay-button">&times;</span>
+      <div class="graph-canvas-wrapper"></div>
+      <div class="graph-controls">
+        <button id="start-timelapse" class="button">Start Timelapse</button>
+        <button id="reset-graph" class="button">Reset Graph</button>
+      </div>
     </div>
   </div>
 </body>

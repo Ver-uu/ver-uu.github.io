@@ -1,14 +1,16 @@
-export async function drawGraph() {
+export async function drawGraph(containerId) {
   // Fetch graph data
   const response = await fetch('/pages/graph.json');
   const graphData = await response.json();
 
   // DOM element
-  const container = document.getElementById('knowledge-graph-modal');
+  const container = document.getElementById(containerId);
   if (!container) {
-    console.error('Graph container not found.');
+    console.error(`Graph container with ID '${containerId}' not found.`);
     return; // Exit if container is not found
   }
+  console.log('Graph container dimensions:', container.offsetWidth, container.offsetHeight); // 디버깅용 로그
+  console.log('Graph container dimensions:', container.offsetWidth, container.offsetHeight); // 디버깅용 로그
 
   // Read CSS variables for theme colors
   const style = getComputedStyle(document.documentElement);
@@ -22,30 +24,47 @@ export async function drawGraph() {
   const options = {
     nodes: {
       shape: 'dot',
-      size: 16,
+      size: 10,
       font: {
-        size: 14,
-        color: fgMain
+        size: 12,
+        color: 'rgba(173, 216, 230, 0.9)', // Light blue for font
+        face: 'Source Code Pro'
       },
       borderWidth: 2,
       color: {
-        border: accentViolet,
-        background: panelBg,
+        border: 'rgba(100, 149, 237, 0.7)', // Cornflower blue border
+        background: 'rgba(25, 25, 112, 0.6)', // Midnight blue background
         highlight: {
-          border: accentCyan,
-          background: panelBg
+          border: 'rgba(0, 191, 255, 1)', // Deep sky blue highlight border
+          background: 'rgba(25, 25, 112, 0.8)' // Slightly less transparent on highlight
         }
-      }
+      },
+      shadow: {
+        enabled: true,
+        color: 'rgba(0, 191, 255, 0.7)', // Deep sky blue glow
+        size: 10, // Larger glow size
+        x: 0,
+        y: 0
+      },
+      inherit: false
     },
     edges: {
       width: 1,
       color: { 
-        color: accentViolet,
-        highlight: accentCyan
+        color: 'rgba(100, 149, 237, 0.5)', // Cornflower blue for edges
+        highlight: 'rgba(0, 191, 255, 0.8)' // Deep sky blue highlight
       },
       smooth: {
         type: 'continuous'
-      }
+      },
+      shadow: {
+        enabled: true,
+        color: 'rgba(100, 149, 237, 0.3)', // Subtle cornflower blue glow for edges
+        size: 5, // Slightly larger glow
+        x: 0,
+        y: 0
+      },
+      inherit: false
     },
     physics: {
       stabilization: false,
@@ -67,6 +86,12 @@ export async function drawGraph() {
   const data = { nodes: nodes, edges: edges };
 
   let network = new vis.Network(container, data, options);
+  network.setSize(container.offsetWidth, container.offsetHeight); // Explicitly set network size
+
+  window.addEventListener('resize', () => {
+    network.fit();
+    network.redraw();
+  });
 
   // Sort nodes by date for timelapse
   const sortedNodes = graphData.nodes.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -112,17 +137,25 @@ export async function drawGraph() {
     edges.clear();
     nodeIndex = 0;
     edgeIndex = 0;
-    network.destroy(); // Destroy and recreate network to reset physics
-    network = new Network(container, data, options);
+    // Add all nodes and edges for initial full display
+    graphData.nodes.forEach(node => nodes.add(node));
+    graphData.links.forEach(link => edges.add(link));
+    network.fit(); // Fit the graph to the view
+    network.redraw(); // Explicitly redraw the network
   }
 
-  document.getElementById('start-timelapse').addEventListener('click', startTimelapse);
-  document.getElementById('reset-graph').addEventListener('click', resetGraph);
+  const startTimelapseButton = document.getElementById('start-timelapse');
+  const resetGraphButton = document.getElementById('reset-graph');
 
-  // Initial full graph display if no timelapse is started
-  // Or just show the reset button to start timelapse
-  // For now, let's just show the reset button and user clicks start
-  resetGraph(); // Initialize with empty graph, ready for timelapse
+  if (startTimelapseButton) {
+    startTimelapseButton.addEventListener('click', startTimelapse);
+  }
+  if (resetGraphButton) {
+    resetGraphButton.addEventListener('click', resetGraph);
+  }
+
+  // Initial full graph display
+  resetGraph();
 }
 
 drawGraph();
