@@ -108,3 +108,40 @@
     background-color: transparent;
   }
 }
+
+/* Comments Section Toggle */
+.comments-toggle {
+  cursor: pointer;
+  color: var(--accent-cyan);
+  margin-top: calc(var(--space) * 2);
+  margin-bottom: var(--space);
+  padding: var(--space) 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--fg-main);
+  }
+
+  .toggle-icon {
+    transition: transform 0.3s ease;
+  }
+}
+
+.comments-content-wrapper {
+  max-height: 1000px; /* Arbitrarily large value for expanded state */
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.comments-content-wrapper.collapsed {
+  max-height: 0;
+}
+
+.comments-toggle.collapsed .toggle-icon {
+  transform: rotate(-90deg); /* Rotate icon when collapsed */
+}

@@ -1,7 +1,9 @@
 {% if site.comments.provider %}
 <div id="comments-section" class="comments-section">
-  <h3>Comments</h3>
-  <div id="comments-container"></div>
+  <h3 id="comments-toggle" class="comments-toggle">Comments <span class="toggle-icon">▼</span></h3>
+  <div id="comments-content-wrapper" class="comments-content-wrapper">
+    <div id="comments-container"></div>
+  </div>
 </div>
 
 <script>
@@ -44,6 +46,28 @@
 
     const observer = new IntersectionObserver(loadComments, { rootMargin: '0px 0px 200px 0px' });
     observer.observe(commentsSection);
+
+    // Comments toggle logic
+    const commentsToggle = document.getElementById('comments-toggle');
+    const commentsContentWrapper = document.getElementById('comments-content-wrapper');
+    const toggleIcon = commentsToggle ? commentsToggle.querySelector('.toggle-icon') : null;
+
+    if (commentsToggle && commentsContentWrapper) {
+      // Initialize as collapsed by default
+      commentsContentWrapper.classList.add('collapsed');
+      commentsToggle.classList.add('collapsed');
+      if (toggleIcon) {
+        toggleIcon.style.transform = 'rotate(-90deg)';
+      }
+
+      commentsToggle.addEventListener('click', () => {
+        const isCollapsed = commentsContentWrapper.classList.toggle('collapsed');
+        commentsToggle.classList.toggle('collapsed', isCollapsed);
+        if (toggleIcon) {
+          toggleIcon.style.transform = isCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)';
+        }
+      });
+    }
   });
 </script>
 {% endif %}
