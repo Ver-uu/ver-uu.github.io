@@ -47,12 +47,16 @@
   <div class="container">
     <header class="site-header">
       <a class="site-title" href="{{ "/" | relative_url }}">{{ site.title }}</a>
-      <nav class="site-nav">
-        <a href="{{ "/" | relative_url }}">Home</a>
-        <a href="{{ "/about/" | relative_url }}">About</a>
-        <a href="{{ "/blog/" | relative_url }}">Blog</a>
-      </nav>
-    </header>
+      <div class="site-header-right">
+          <nav class="site-nav">
+            <a href="{{ "/" | relative_url }}">Home</a>
+            <a href="{{ "/about/" | relative_url }}">About</a>
+            <a href="{{ "/blog/" | relative_url }}">Blog</a>
+          </nav>
+          <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+            <i class="fas fa-bars"></i>
+          </button>
+      </div>    </header>
 
     <main id="main-content" class="site-main">
       {{ content }}

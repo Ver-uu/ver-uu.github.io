@@ -3,7 +3,18 @@
 .sidebar {
   @extend .panel;
   padding: calc(var(--space) * 1.4);
-  align-self: start; // Stick to the top of the grid cell
+
+  /* 오버레이 스타일 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80%; /* 화면 너비의 80% */
+  max-width: 200px; /* 최대 너비 설정 */
+  height: 100%;
+  z-index: 1000; /* 다른 요소 위에 오도록 */
+  overflow-y: auto; /* 내용이 길어지면 스크롤 */
+  box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3); /* 그림자 추가 */
+  border-radius: 0; /* 오버레이는 모서리 둥글게 하지 않음 */
 }
 
 .profile {

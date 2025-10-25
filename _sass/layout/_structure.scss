@@ -23,8 +23,13 @@
   color: var(--fg);
 }
 
+.site-header-right {
+  display: flex;
+  align-items: center;
+}
+
 .site-nav a {
-  margin-left: var(--space);
+  margin-left: 1rem;
   text-decoration: none;
   color: var(--accent-cyan);
   transition: text-shadow 0.3s ease;
@@ -45,9 +50,7 @@
 
 // For pages with a sidebar
 .page-with-sidebar {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: calc(var(--space) * 2);
+  // The sidebar is now a fixed overlay, so no special grid layout is needed here.
 }
 
 .main-content-with-sidebar > *:first-child {
@@ -56,21 +59,50 @@
 
 // Responsive layout
 @media (max-width: 1200px) {
-  .page-with-sidebar {
-    grid-template-columns: 1fr;
-    gap: var(--space);
-  }
-
   .site-header {
     height: auto;
-    flex-direction: column;
+    flex-direction: row; /* site-title, site-nav, sidebar-toggle을 한 줄에 배치 */
+    justify-content: space-between; /* 양 끝 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
     gap: var(--space);
     padding-bottom: var(--space);
+  }
+
+  .site-nav {
+    flex-direction: row;
+    align-items: center;
+    /* justify-content: space-between; */ /* site-header에서 처리 */
+    width: auto; /* 유연하게 공간 차지 */
   }
 
   .mac-terminal .body {
     min-height: 550px; // Increase vertical length for terminal body on smaller screens
   }
+}
+
+/* 사이드바 토글 버튼 항상 표시 */
+.sidebar-toggle {
+  display: block;
+  background: none;
+  border: none;
+  color: var(--accent-cyan);
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+/* 사이드바 숨김/표시 로직 */
+.sidebar {
+  transform: translateX(-100%); /* 기본적으로 숨김 */
+  opacity: 0;
+  pointer-events: none; /* 클릭 이벤트 방지 */
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.sidebar.is-open {
+  transform: translateX(0); /* 열렸을 때 보이도록 */
+  opacity: 1;
+  pointer-events: auto;
 }
 
 // Accessibility: Skip to content link
