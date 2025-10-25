@@ -67,6 +67,10 @@
     gap: var(--space);
     padding-bottom: var(--space);
   }
+
+  .mac-terminal .body {
+    min-height: 550px; // Increase vertical length for terminal body on smaller screens
+  }
 }
 
 // Accessibility: Skip to content link
